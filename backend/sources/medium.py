@@ -58,10 +58,14 @@ class MediumSource(BlogSource):
                         tags = None
                         if hasattr(entry, 'tags') and entry.tags:
                             tags = [tag.term for tag in entry.tags[:5]]
+                        # Format date as "January 25th, 2026"
+                        day = dt.day
+                        suffix = 'th' if 11 <= day <= 13 else {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+                        date_str = dt.strftime(f"%B {day}{suffix}, %Y")
                             
                         blogs.append(Blog(
                             title=entry.title,
-                            date=dt.strftime("%d/%m/%Y"),
+                            date=date_str,
                             description=truncate_description(clean_description),
                             link=entry.link,
                             image=image_url,

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap');
+
+/* CSS Variables - Light Mode (default) */
+:root {
+  --bg: #FFFFFF;
+  --surface: #FAFAFA;
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+  --accent: #0066CC;
+  --border: #E5E5E5;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --bg: #0A0A0A;
+  --surface: #1A1A1A;
+  --text-primary: #F5F5F5;
+  --text-secondary: #999999;
+  --accent: #4DA6FF;
+  --border: #333333;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+/* App Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Page Title (shared) */
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Error Message (shared) */
+.error-message {
+  color: #dc2626;
+  padding: 1rem;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
+[data-theme="dark"] .error-message {
+  background: #450a0a;
+  color: #fca5a5;
+}
+
+/* Edge Vignette Effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.03) 100%);
+  z-index: 9999;
+}
+
+[data-theme="dark"] body::before {
+  background: radial-gradient(ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}

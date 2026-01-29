@@ -41,9 +41,14 @@ class GitHubSource(ProjectSource):
                     pushed_at = repo['pushed_at'].replace('Z', '+00:00')
                     dt = datetime.fromisoformat(pushed_at)
                     
+                    # Format date as "January 25th, 2026"
+                    day = dt.day
+                    suffix = 'th' if 11 <= day <= 13 else {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+                    date_str = dt.strftime(f"%B {day}{suffix}, %Y")
+                    
                     projects.append(Project(
                         title=repo['name'],
-                        date=dt.strftime("%d/%m/%Y"),
+                        date=date_str,
                         description=truncate_description(repo['description'] or ""),
                         link=repo['html_url'],
                         stars=repo['stargazers_count'],
