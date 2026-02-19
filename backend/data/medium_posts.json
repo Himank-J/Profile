@@ -1,0 +1,360 @@
+[
+  {
+    "title": "(Keep) CALM!",
+    "date": "February 18th, 2026",
+    "description": "Most modern large language models (LLMs) are built on the Transformer architecture, which relies on sequential token generation. While this…",
+    "link": "https://medium.com/@himankvjain/keep-calm-b3caab57d552",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*_tsALMwJJ1dkes0rECZ4iQ.jpeg",
+    "tags": [
+      "multi-token-prediction",
+      "autoencoder",
+      "transformers",
+      "calm",
+      "large-language-models"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "How X builds your \"For You\" Feed?",
+    "date": "January 25th, 2026",
+    "description": "X just did something almost unheard of in the tech world: they open-sourced the entire production code behind their \"For You\" feed. Not a…",
+    "link": "https://medium.com/@himankvjain/how-x-builds-your-for-you-feed-6ceb96bc9641",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*fxRzVxME3PwhJXJvyMegvQ.jpeg",
+    "tags": [
+      "twitter",
+      "recommendation-system",
+      "transformers",
+      "grok",
+      "two-tower-model"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "How DeepSeek's mHC Revolutionizes LLM Connectivity",
+    "date": "January 3rd, 2026",
+    "description": "In the race to build smarter Artificial Intelligence, researchers face a fundamental trade-off between capacity (how much a model can…",
+    "link": "https://medium.com/@himankvjain/how-deepseeks-mhc-revolutionizes-llm-connectivity-e357f0385641",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*6kDagALglEmuZsBNy9WYHA.png",
+    "tags": [
+      "transformers",
+      "llm",
+      "ai",
+      "deepseek",
+      "neural-networks"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Calibrating Process Reward Models for Reliable and Efficient Reasoning in Language Models",
+    "date": "December 9th, 2025",
+    "description": "",
+    "link": "https://medium.com/@himankvjain/calibrating-process-reward-models-for-reliable-and-efficient-reasoning-in-language-models-4f25ecfad808",
+    "image": null,
+    "tags": [
+      "computation",
+      "generative-reward-models",
+      "llm",
+      "reasoning"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Prompt to Context Engineering",
+    "date": "July 28th, 2025",
+    "description": "You know that feeling when you ask an AI a question and get back something so perfectly tailored to your situation that it almost feels…",
+    "link": "https://medium.com/@himankvjain/prompt-to-context-engineering-b13671412d27",
+    "image": null,
+    "tags": [
+      "context-engineering",
+      "ai",
+      "prompt-engineering",
+      "llm-agent",
+      "artificial-intelligence"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Convolution Meets Context: Meta's Multi-Token Attention Explained",
+    "date": "April 2nd, 2025",
+    "description": "In this article we will go through the concept of MTA—Multi Token Attention as published by Meta.",
+    "link": "https://medium.com/@himankvjain/convolution-meets-context-metas-multi-token-attention-explained-10e81098aed1",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*KudgX2bNDlSQMGbt1wkl4w.png",
+    "tags": [
+      "multitoken",
+      "llm",
+      "ai",
+      "convolutional-network",
+      "meta"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Scaling Intelligence: Multi-Agent Design Patterns for Efficient and Specialized AI Systems",
+    "date": "February 23rd, 2025",
+    "description": "In recent years, we have seen the rise of Mixture-of-Experts (MoE) architectures in Large Language Models (LLMs), where models are divided…",
+    "link": "https://medium.com/@himankvjain/scaling-intelligence-multi-agent-design-patterns-for-efficient-and-specialized-ai-systems-fb6503b71726",
+    "image": "https://miro.medium.com/v2/da:true/resize:fill:160:106/0*zcfVzUJtqbxw1uGJ",
+    "tags": [
+      "llm-agent",
+      "agentic-workflow",
+      "data-science",
+      "system-design-course",
+      "artificial-intelligence"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Deploying a scalable Emotion Detection Web App using EKS, FastAPI and Helm",
+    "date": "January 19th, 2025",
+    "description": "In the rapidly evolving world of cloud-native applications, building scalable, reliable, and efficient systems is paramount. This article…",
+    "link": "https://medium.com/@himankvjain/deploying-a-scalable-emotion-detection-web-app-using-eks-fastapi-and-helm-c73a83f6c559",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*IQlD1B4KzlTZK5bgYilXxQ.png",
+    "tags": [
+      "kubernetes",
+      "production-deployment",
+      "hpa",
+      "aws",
+      "autoscaling"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Initiating Model Context Protocol",
+    "date": "December 15th, 2024",
+    "description": "As AI assistants become increasingly mainstream, the industry has made significant investments in enhancing model capabilities, driving…",
+    "link": "https://medium.com/@himankvjain/initiating-model-context-protocol-3fadd4974744",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*Y7o8kyITYJkunwyoeND8qQ.png",
+    "tags": [
+      "mcps",
+      "agentic-workflow",
+      "agentic-ai",
+      "llm-agent",
+      "ai-agent"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "The Neutral Zone: How Clean Rooms Create Trust in a Zero-Trust World",
+    "date": "October 27th, 2024",
+    "description": "Consider a healthcare provider—EnSure Health, collaborating with multiple research institutes to study patient outcomes for a new line…",
+    "link": "https://medium.com/@himankvjain/the-neutral-zone-how-clean-rooms-create-trust-in-a-zero-trust-world-0a66aed94632",
+    "image": "https://miro.medium.com/v2/da:true/resize:fill:160:106/0*7yR7Ov4n4VUWfM1L",
+    "tags": [
+      "data-security",
+      "cleanroom",
+      "privacy"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "The RoPE Effect: Untangling Positional Encoding in AI Language Models",
+    "date": "September 17th, 2024",
+    "description": "What Are Positional Encodings and Why Do We Need Them?",
+    "link": "https://medium.com/@himankvjain/the-rope-effect-untangling-positional-encoding-in-ai-language-models-1bf0ab46776b",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*qrrL_jDAkKnjm9TgsKekSw.png",
+    "tags": [
+      "Rope",
+      "Positional Encoding",
+      "LLM",
+      "Generative Ai",
+      "Transformers"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Concept of Mixtures: MOE vs MOT",
+    "date": "August 13th, 2024",
+    "description": "Imagine a bustling kitchen in a gourmet restaurant. In this kitchen, there are chefs specializing in different cuisines—Italian…",
+    "link": "https://medium.com/@himankvjain/concept-of-mixtures-moe-vs-mot-d89c6b580f23",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*cnJsLS5qrU3EiknV1vymCQ.png",
+    "tags": [
+      "LLM",
+      "Generative Ai",
+      "Mixture Of Experts",
+      "Mixture Models"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Understanding Stable Diffusion",
+    "date": "August 1st, 2024",
+    "description": "Imagine transforming mere words into stunning visuals with the power of advanced AI. Picture describing a scene, a concept, or even an…",
+    "link": "https://medium.com/@himankvjain/understanding-stable-diffusion-72216e44f260",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*LTbbFeW85KTgeGuWZbgAtg.png",
+    "tags": [
+      "Stable Diffusion",
+      "Variational Autoencoder",
+      "Unet",
+      "Clip",
+      "Image Generation"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Accelerating Language Models with Multi-Token Prediction",
+    "date": "July 28th, 2024",
+    "description": "Meta's new research introduces an improved method for training Large Language Models (LLMs). This model predicts multiple tokens…",
+    "link": "https://medium.com/@himankvjain/accelerating-language-models-with-multi-token-prediction-9f0167232f5b",
+    "image": "https://miro.medium.com/v2/da:true/resize:fill:160:106/0*1beKRkHnq8jEexCc",
+    "tags": [
+      "Multitoken",
+      "Meta",
+      "Transformers",
+      "Generative Ai"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Understanding the variance of Variational Autoencoders",
+    "date": "July 28th, 2024",
+    "description": "In the field of deep learning, autoencoders are well-known for their ability to compress and reconstruct data, aiming to learn efficient…",
+    "link": "https://medium.com/@himankvjain/understanding-the-variance-of-variational-autoencoders-21f99b615675",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*0Fk_PhQIsN6rRZRoQ3p5OA.png",
+    "tags": [
+      "Variational Autoencoder",
+      "Kullback Leibler",
+      "Vae"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Decoding Autoencoders",
+    "date": "July 28th, 2024",
+    "description": "Autoencoders are a type of deep learning neural network that have found applications in various domains such as computer vision, natural…",
+    "link": "https://medium.com/@himankvjain/decoding-autoencoders-04802c1e4126",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*quC1tyu6nkyytVKeR5afkQ.png",
+    "tags": [
+      "Autoencoder",
+      "Masked Autoencoder",
+      "Variational Autoencoder"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Tokenization & Byte-Pair Encoding",
+    "date": "July 28th, 2024",
+    "description": "“Gemini-1.5 has a context length of 1M tokens.”",
+    "link": "https://medium.com/@himankvjain/tokenization-byte-pair-encoding-8f92f5d7d86b",
+    "image": "https://miro.medium.com/v2/da:true/resize:fill:160:106/0*WA49UeyNORUX6Q4J",
+    "tags": [
+      "Tokenisation",
+      "Byte Pair Encoding",
+      "LLM",
+      "Transformers",
+      "Generative Ai"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Mastering Text Generation: Unveiling the Secrets of Decoding Strategies in Large Language Models",
+    "date": "July 28th, 2024",
+    "description": "Decoding in the context of large language models (LLMs) refers to the process of generating sequences of words or tokens based on the input…",
+    "link": "https://medium.com/@himankvjain/mastering-text-generation-unveiling-the-secrets-of-decoding-strategies-in-large-language-models-e89f91b9b7f1",
+    "image": "https://miro.medium.com/v2/da:true/resize:fill:160:106/0*vgRAymmwE6r0PXYp",
+    "tags": [
+      "LLM",
+      "Generative Ai",
+      "Decoding Strategy"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Optimisation Strategies to Speed up Transformers",
+    "date": "July 28th, 2024",
+    "description": "Transformers have revolutionised the field of natural language processing (NLP) and have found applications in various domains such as…",
+    "link": "https://medium.com/@himankvjain/optimisation-strategies-to-speed-up-transformers-4d90550e3c49",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*XToLoc_zQvJNGsEQC4FC9w.png",
+    "tags": [
+      "LLM",
+      "Optimisation",
+      "Transformers",
+      "Generative Ai"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Why Decoder-only Transformers?",
+    "date": "July 28th, 2024",
+    "description": "In the realm of natural language processing (NLP), Transformer architectures have revolutionized the way machines understand and generate…",
+    "link": "https://medium.com/@himankvjain/why-decoder-only-transformers-fc60ee77959b",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*pzR8pvQanSexehlfOq3hSw.png",
+    "tags": [
+      "Transformers",
+      "LLM",
+      "Decoder",
+      "NLP",
+      "Encoder"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "MORA: A High Rank PEFT Approach for Fine-Tuning",
+    "date": "July 28th, 2024",
+    "description": "",
+    "link": "https://medium.com/@himankvjain/mora-a-high-rank-peft-approach-for-fine-tuning-3f769462f229",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*Wd9xmM_0qECADlQr5rsh_w.png",
+    "tags": [
+      "LLM",
+      "Finetune Llm",
+      "Generative Ai",
+      "Mora",
+      "Peft"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "RAG & GraphRAG",
+    "date": "July 28th, 2024",
+    "description": "",
+    "link": "https://medium.com/@himankvjain/rag-graphrag-a52e13701283",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*Ni--n6NVIi1m0GWBKB-IJA.png",
+    "tags": [
+      "Rag",
+      "Graphrag",
+      "Genai",
+      "LLM",
+      "Generative Ai"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "xLSTM: A New Frontier in Large Language Model Efficiency and Performance",
+    "date": "July 28th, 2024",
+    "description": "The landscape of large language models (LLMs) has been revolutionized by Transformers since their debut in 2017. Prior to the rise of…",
+    "link": "https://medium.com/@himankvjain/xlstm-a-new-frontier-in-large-language-model-efficiency-and-performance-53dc78ed894e",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*Agkjm3YBo9e5l__WdsCHNA.png",
+    "tags": [
+      "Lstm",
+      "Xlstm",
+      "LLM",
+      "Generative Ai"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "How Tensor Streaming Processor (TSP) forms the backend for LPU?",
+    "date": "July 28th, 2024",
+    "description": "Recently, Groq garnered attention for surpassing LLM inference benchmarks with their Language Processing Unit (LPU) hardware. The LPU's…",
+    "link": "https://medium.com/@himankvjain/how-tensor-streaming-processor-tsp-forms-the-backend-for-lpu-cf02036a7991",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*bh8nYB-Z8RGAOr_BxkB8yA.png",
+    "tags": [
+      "Tsp",
+      "Lpu",
+      "Architecture"
+    ],
+    "source": "Medium"
+  },
+  {
+    "title": "Language on Fast Forward: LPUs vs. GPUs—The Race for AI Communication",
+    "date": "July 28th, 2024",
+    "description": "Recently, I found my teammate delving into the intricacies of GPU power and its superiority over CPUs, sparking my own curiosity to…",
+    "link": "https://medium.com/@himankvjain/language-on-fast-forward-lpus-vs-gpus-the-race-for-ai-communication-c8c506919468",
+    "image": "https://miro.medium.com/v2/resize:fill:160:106/1*kbgLkK_0Ek4_LaZkSdwEQA.png",
+    "tags": [
+      "Gpus",
+      "Lpu",
+      "Tsp"
+    ],
+    "source": "Medium"
+  }
+]
