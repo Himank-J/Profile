@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'frontend/**'
+      - 'content/**'                         # re-build when posts are added/edited
+      - 'scripts/generate-posts.mjs'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:  # allows manual trigger from GitHub UI
 
@@ -30,11 +32,21 @@ jobs:
         run: npm ci
         working-directory: frontend
 
+      - name: Generate posts.json + sitemap.xml + admin/config.yml
+        run: node scripts/generate-posts.mjs
+        env:
+          # Change these secrets to switch domain — no code changes needed
+          SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          GITHUB_REPO: Himank-J/Profile
+
       - name: Build
         run: npm run build
         working-directory: frontend
         env:
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          VITE_GITHUB_REPO: Himank-J/Profile
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

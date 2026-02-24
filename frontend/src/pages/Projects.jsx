@@ -1,4 +1,5 @@
 import { Star, ExternalLink } from 'lucide-react';
+import SEO from '../components/SEO';
 import './Projects.css';
 
 // Language colors for badges
@@ -21,6 +22,7 @@ function Projects({ projects, loading, error }) {
     if (loading) {
         return (
             <div className="projects-page">
+                <SEO title="Projects" description="Open source contributions and personal projects by Himank Jain." />
                 <h1 className="page-title">Projects</h1>
                 <p className="page-subtitle">Open source contributions and personal projects</p>
                 <div className="projects-grid">
@@ -39,6 +41,7 @@ function Projects({ projects, loading, error }) {
     if (error) {
         return (
             <div className="projects-page">
+                <SEO title="Projects" description="Open source contributions and personal projects by Himank Jain." />
                 <h1 className="page-title">Projects</h1>
                 <p className="error-message">Error: {error}</p>
             </div>
@@ -47,6 +50,7 @@ function Projects({ projects, loading, error }) {
 
     return (
         <div className="projects-page">
+            <SEO title="Projects" description="Open source contributions and personal projects by Himank Jain." />
             <h1 className="page-title">Projects</h1>
             <p className="page-subtitle">Open source contributions and personal projects</p>
 

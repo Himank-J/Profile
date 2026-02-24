@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import SEO from '../components/SEO';
 import './About.css';
 
 function About() {
@@ -18,6 +19,11 @@ function About() {
 
     return (
         <div className="about-page">
+            <SEO
+                title="About"
+                description="Himank Jain — AI/ML Engineer @Google, focused on LLMs, AI systems, and production ML infrastructure."
+                path="/about"
+            />
             <div className="about-container">
                 <aside className="profile-card">
                     <div className="profile-image-container">
