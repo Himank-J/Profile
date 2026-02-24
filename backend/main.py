@@ -28,7 +28,8 @@ MEDIUM_USERNAME = os.getenv("MEDIUM_USERNAME")
 GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
 GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
-SITE_URL = os.getenv("SITE_URL")
+SITE_URL = os.getenv("SITE_URL")          # frontend (GitHub Pages)
+BACKEND_URL = os.getenv("BACKEND_URL")    # this server (Vercel) — used for OAuth callback
 
 blog_source = MediumSource(MEDIUM_USERNAME)
 project_source = GitHubSource(GITHUB_USERNAME)
@@ -57,12 +58,13 @@ async def github_auth():
     Step 1: Redirect browser to GitHub OAuth consent page.
     Decap CMS opens /api/auth in a popup window.
     """
-    redirect_uri = f"{SITE_URL.rstrip('/')}/api/auth/callback"
+    # Callback must point to THIS backend, not the frontend site
+    callback = f"{BACKEND_URL.rstrip('/')}/api/auth/callback"
     github_oauth_url = (
         f"https://github.com/login/oauth/authorize"
         f"?client_id={GITHUB_CLIENT_ID}"
         f"&scope=repo,user"
-        f"&redirect_uri={redirect_uri}"
+        f"&redirect_uri={callback}"
     )
     return RedirectResponse(url=github_oauth_url)
 
