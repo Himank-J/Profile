@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
@@ -50,7 +50,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <HashRouter>
         <div className="app">
           <Header />
           <main className="main-content">
@@ -62,7 +62,7 @@ function App() {
           </main>
           <Footer />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }
