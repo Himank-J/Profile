@@ -1,32 +1,10 @@
-import { useState, useEffect } from 'react';
 import { ExternalLink } from 'lucide-react';
 import './Blog.css';
 
-function Blog() {
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetch('http://localhost:8000/api/blogs')
-            .then(res => {
-                if (!res.ok) throw new Error('Failed to fetch blogs');
-                return res.json();
-            })
-            .then(data => {
-                setBlogs(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                setError(err.message);
-                setLoading(false);
-            });
-    }, []);
-
+function Blog({ blogs, loading, error }) {
     // Group blogs by month/year
     // Date format is "January 25th, 2026"
     const groupedBlogs = blogs.reduce((acc, blog) => {
-        // Parse "January 25th, 2026" -> extract month and year
         const match = blog.date.match(/^(\w+)\s+\d+\w+,\s+(\d+)$/);
         if (match) {
             const [, month, year] = match;
