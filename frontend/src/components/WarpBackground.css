@@ -1,0 +1,82 @@
+/* ── WarpBackground — full-viewport background, About page only ──────────── */
+/* Fixed, pointer-events:none, z-index:0 → never blocks any UI element       */
+
+.warp-root {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* 3-D perspective container */
+.warp-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    clip-path: inset(0);
+    container-type: size;
+    perspective: var(--perspective, 100px);
+    transform-style: preserve-3d;
+}
+
+/* Shared grid plane styles */
+.warp-plane {
+    position: absolute;
+    transform-style: preserve-3d;
+    container-type: inline-size;
+    /* Grid lines using --border (already defined in globals for light + dark) */
+    background-image:
+        linear-gradient(var(--border) 0 1px, transparent 1px var(--beam-size, 5%)),
+        linear-gradient(90deg, var(--border) 0 1px, transparent 1px var(--beam-size, 5%));
+    background-size: var(--beam-size, 5%) var(--beam-size, 5%);
+    background-position: 50% -0.5px, 50% 50%;
+}
+
+/* Top face — rotated back to lie flat above the viewport */
+.warp-top {
+    width: 100cqi;
+    height: 100cqmax;
+    transform-origin: 50% 0%;
+    transform: rotateX(-90deg);
+}
+
+/* Bottom face */
+.warp-bottom {
+    top: 100%;
+    width: 100cqi;
+    height: 100cqmax;
+    transform-origin: 50% 0%;
+    transform: rotateX(-90deg);
+}
+
+/* Left face */
+.warp-left {
+    left: 0;
+    top: 0;
+    width: 100cqh;
+    height: 100cqmax;
+    transform-origin: 0% 0%;
+    transform: rotate(90deg) rotateX(-90deg);
+}
+
+/* Right face */
+.warp-right {
+    right: 0;
+    top: 0;
+    width: 100cqh;
+    height: 100cqmax;
+    transform-origin: 100% 0%;
+    transform: rotate(-90deg) rotateX(-90deg);
+}
+
+/* Individual beam strips (inline styles drive --x, --width, --aspect-ratio, --beam-bg) */
+.warp-beam {
+    position: absolute;
+    left: var(--x);
+    top: 0;
+    width: var(--width);
+    aspect-ratio: 1 / var(--aspect-ratio, 3);
+    background: var(--beam-bg);
+    opacity: 0.65;
+}
