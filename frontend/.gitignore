@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# package-lock.json is generated via gpkg (corporate npm proxy) locally,
+# which bakes corporate registry resolved URLs into it. This breaks
+# GitHub Actions (E401). CI uses npm install + .npmrc to get packages
+# from the public registry instead.
+package-lock.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

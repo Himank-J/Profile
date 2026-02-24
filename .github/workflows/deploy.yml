@@ -25,15 +25,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        # Use npm install (not npm ci) — package-lock.json has corporate registry
+        # resolved URLs from gpkg proxy that GitHub Actions can't authenticate against.
+        # .npmrc in frontend/ sets registry=https://registry.npmjs.org/ to fix this.
+        run: npm install --legacy-peer-deps
         working-directory: frontend
 
       - name: Generate posts.json + sitemap.xml + admin/config.yml
         run: node scripts/generate-posts.mjs
+        working-directory: .
         env:
           # Change these secrets to switch domain — no code changes needed
           SITE_URL: ${{ secrets.VITE_SITE_URL }}
