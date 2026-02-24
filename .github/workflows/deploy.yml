@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'frontend/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:  # allows manual trigger from GitHub UI
 
 jobs:
   deploy:
