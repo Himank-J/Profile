@@ -1,0 +1,53 @@
+backend:
+  name: github
+  repo: Himank-J/Profile
+  branch: main
+  base_url: https://profilebackend-rho.vercel.app
+  auth_endpoint: /api/auth
+
+media_folder: content/uploads
+public_folder: /content/uploads
+
+site_url: https://himank-j.github.io/Profile
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: content/posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        hint: The post title shown on the blog index and post page
+
+      - label: Date
+        name: date
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: Publication date
+
+      - label: Description
+        name: description
+        widget: text
+        hint: Short blurb shown on the blog index (1-2 sentences)
+
+      - label: Tags
+        name: tags
+        widget: list
+        hint: Comma-separated tags (e.g. ai, llm, transformers)
+
+      - label: Cover Image
+        name: image
+        widget: image
+        required: false
+        hint: Optional hero image displayed at the top of the post
+
+      - label: Body
+        name: body
+        widget: markdown
+        hint: Your post content — bold, headings, links, images, code blocks all supported
