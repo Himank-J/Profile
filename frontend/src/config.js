@@ -1,7 +1,6 @@
-// API Configuration
-// Update this URL when deploying to production
+// API Configuration — set VITE_API_BASE_URL in .env.local
 const config = {
-    API_BASE_URL: 'https://profilebackend-rho.vercel.app',
+    API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
 };
 
 export default config;

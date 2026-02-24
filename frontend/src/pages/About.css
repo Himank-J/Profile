@@ -1,13 +1,13 @@
 .about-page {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 1.5rem;
+    padding: 2rem 2rem;
 }
 
 .about-container {
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 3rem;
+    grid-template-columns: 320px 1fr;
+    gap: 4rem;
     align-items: start;
 }
 

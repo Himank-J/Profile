@@ -1,7 +1,7 @@
 .projects-page {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 1.5rem;
+    padding: 2rem 2rem;
 }
 
 .page-subtitle {
@@ -12,8 +12,9 @@
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
+    align-items: stretch;
 }
 
 @media (max-width: 900px) {
@@ -48,6 +49,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    width: 100%;
+    margin: 0;
+    min-height: 220px;
+    align-self: stretch;
+    box-sizing: border-box;
     opacity: 0;
     animation: scaleIn 0.4s ease-out forwards;
     transition: transform 0.2s, box-shadow 0.2s;
