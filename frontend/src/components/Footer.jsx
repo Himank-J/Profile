@@ -14,16 +14,16 @@ function Footer() {
     return (
         <footer className="footer">
             <div className="footer-icons">
-                <a href="mailto:himankvjain@gmail.com" className="footer-icon" aria-label="Email">
+                <a href="https://mail.google.com/mail/?view=cm&to=himankvjain@gmail.com" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Email">
                     <Mail size={22} />
                 </a>
                 <a href="https://github.com/Himank-J" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="GitHub">
                     <Github size={22} />
                 </a>
-                <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="X">
+                <a href="https://x.com/HimankJain85627" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="X">
                     <XIcon size={20} />
                 </a>
-                <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/himank-jain" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="LinkedIn">
                     <Linkedin size={22} />
                 </a>
             </div>
