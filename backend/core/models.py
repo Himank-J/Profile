@@ -19,3 +19,5 @@ class Project(BaseModel):
     stars: Optional[int] = 0
     language: Optional[str] = None
     source: str = "GitHub"
+    created_at: Optional[str] = None   
+    updated_at: Optional[str] = None

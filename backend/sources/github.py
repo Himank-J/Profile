@@ -53,7 +53,9 @@ class GitHubSource(ProjectSource):
                         link=repo['html_url'],
                         stars=repo['stargazers_count'],
                         language=repo['language'],
-                        source="GitHub"
+                        source="GitHub",
+                        created_at=repo.get('created_at'),
+                        updated_at=repo.get('pushed_at'),
                     ))
                 
                 # If we got fewer than 100 repos, we've reached the end
