@@ -8,6 +8,23 @@ import SEO from '../components/SEO';
 import config from '../config';
 import './BlogPost.css';
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/Profile" or ""
+
+// Prepend base to /uploads/... relative paths; leave absolute URLs alone
+function resolveImg(src) {
+    if (!src) return src;
+    if (src.startsWith('http://') || src.startsWith('https://')) return src;
+    // src from posts.json is already rewritten to /uploads/...
+    return `${BASE}${src}`;
+}
+
+// Custom img renderer for ReactMarkdown
+const mdComponents = {
+    img({ src, alt, ...props }) {
+        return <img src={resolveImg(src)} alt={alt} loading="lazy" {...props} />;
+    },
+};
+
 function BlogPost() {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
@@ -105,14 +122,14 @@ function BlogPost() {
             {post.image && (
                 <img
                     className="post-cover"
-                    src={post.image}
+                    src={resolveImg(post.image)}
                     alt={post.title}
                     loading="lazy"
                 />
             )}
 
             <div className="post-body">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
                     {post.body}
                 </ReactMarkdown>
             </div>

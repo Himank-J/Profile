@@ -9,15 +9,17 @@
  *   - frontend/public/sitemap.xml  (for search engines)
  */
 
-import { readdir, readFile, writeFile, mkdir } from 'fs/promises';
+import { readdir, readFile, writeFile, mkdir, copyFile } from 'fs/promises';
 import { existsSync } from 'fs';
-import { join, dirname } from 'path';
+import { join, dirname, basename } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const POSTS_DIR = join(ROOT, 'content', 'posts');
+const UPLOADS_SRC = join(ROOT, 'content', 'uploads');
 const OUT_DIR = join(ROOT, 'frontend', 'public');
+const UPLOADS_OUT = join(OUT_DIR, 'uploads');
 const ADMIN_DIR = join(ROOT, 'frontend', 'public', 'admin');
 
 // All URLs/identifiers come from env — change domain = change env var only
@@ -182,11 +184,30 @@ collections:
 }
 
 // ---------------------------------------------------------------------------
+// Copy content/uploads/ → frontend/public/uploads/ so images are served
+// ---------------------------------------------------------------------------
+async function copyUploads() {
+    if (!existsSync(UPLOADS_SRC)) return;  // nothing to copy
+    await mkdir(UPLOADS_OUT, { recursive: true });
+    const files = await readdir(UPLOADS_SRC);
+    let count = 0;
+    for (const file of files) {
+        if (file === '.gitkeep') continue;
+        await copyFile(join(UPLOADS_SRC, file), join(UPLOADS_OUT, file));
+        count++;
+    }
+    if (count) console.log(`✅ Copied ${count} upload(s) → frontend/public/uploads/`);
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 async function main() {
     // Generate Decap CMS config from env vars
     await generateDecapConfig();
+
+    // Copy uploaded images so they are bundled in the Vite output
+    await copyUploads();
 
     // Ensure posts output directory exists
     if (!existsSync(OUT_DIR)) {
@@ -218,7 +239,10 @@ async function main() {
             displayDate: formatDate(data.date),
             description,
             tags: Array.isArray(data.tags) ? data.tags : [],
-            image: data.image || null,
+            // Rewrite /content/uploads/X → /uploads/X so Vite base-path works
+            image: data.image
+                ? data.image.replace(/^\/content\/uploads\//, '/uploads/')
+                : null,
             source: 'Custom',
             // Inline the markdown body so the frontend needs no extra fetch
             body: content.trim(),
