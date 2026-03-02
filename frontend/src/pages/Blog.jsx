@@ -116,6 +116,15 @@ function Blog({ blogs, customPosts, loading, error }) {
                                         <Link
                                             to={`/blog/${post.slug}`}
                                             className="blog-link"
+                                            onClick={() => {
+                                                if (typeof window.gtag === 'function') {
+                                                    window.gtag('event', 'blog_post_click', {
+                                                        post_title: post.title,
+                                                        post_slug: post.slug,
+                                                        post_type: 'custom',
+                                                    });
+                                                }
+                                            }}
                                         >
                                             <h3 className="blog-title">{post.title}</h3>
                                         </Link>
@@ -126,6 +135,15 @@ function Blog({ blogs, customPosts, loading, error }) {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="blog-link"
+                                            onClick={() => {
+                                                if (typeof window.gtag === 'function') {
+                                                    window.gtag('event', 'blog_post_click', {
+                                                        post_title: post.title,
+                                                        post_url: post.link,
+                                                        post_type: 'medium',
+                                                    });
+                                                }
+                                            }}
                                         >
                                             <h3 className="blog-title">
                                                 {post.title}

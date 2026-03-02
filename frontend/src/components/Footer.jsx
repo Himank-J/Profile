@@ -10,20 +10,26 @@ function XIcon({ size = 22 }) {
     );
 }
 
+function trackSocial(platform) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', 'social_link_click', { platform });
+    }
+}
+
 function Footer() {
     return (
         <footer className="footer">
             <div className="footer-icons">
-                <a href="https://mail.google.com/mail/?view=cm&to=himankvjain@gmail.com" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Email">
+                <a href="https://mail.google.com/mail/?view=cm&to=himankvjain@gmail.com" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Email" onClick={() => trackSocial('email')}>
                     <Mail size={22} />
                 </a>
-                <a href="https://github.com/Himank-J" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="GitHub">
+                <a href="https://github.com/Himank-J" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="GitHub" onClick={() => trackSocial('github')}>
                     <Github size={22} />
                 </a>
-                <a href="https://x.com/HimankJain85627" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="X">
+                <a href="https://x.com/HimankJain85627" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="X" onClick={() => trackSocial('twitter')}>
                     <XIcon size={20} />
                 </a>
-                <a href="https://linkedin.com/in/himank-jain" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/himank-jain" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="LinkedIn" onClick={() => trackSocial('linkedin')}>
                     <Linkedin size={22} />
                 </a>
             </div>

@@ -59,6 +59,14 @@ function ProjectCard({ project, index }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="project-link"
+                onClick={() => {
+                    if (typeof window.gtag === 'function') {
+                        window.gtag('event', 'project_click', {
+                            project_name: project.title,
+                            project_url: project.link,
+                        });
+                    }
+                }}
             >
                 View on GitHub
                 <ExternalLink size={13} />

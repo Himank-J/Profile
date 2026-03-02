@@ -42,7 +42,18 @@ function Header() {
                         About
                     </NavLink>
 
-                    <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+                    <button
+                        className="theme-toggle"
+                        aria-label="Toggle theme"
+                        onClick={() => {
+                            toggleTheme();
+                            if (typeof window.gtag === 'function') {
+                                window.gtag('event', 'theme_toggle', {
+                                    new_theme: isDark ? 'light' : 'dark',
+                                });
+                            }
+                        }}
+                    >
                         {isDark ? <Sun size={20} /> : <Moon size={20} />}
                     </button>
                 </nav>

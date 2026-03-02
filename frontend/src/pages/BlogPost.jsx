@@ -46,6 +46,47 @@ function BlogPost() {
             });
     }, [slug]);
 
+    // ── Scroll depth + Reading time tracking ──────────────────────────────
+    useEffect(() => {
+        if (!post) return;
+        const startTime = Date.now();
+        const fired = new Set();
+        const MILESTONES = [25, 50, 75, 100];
+
+        function onScroll() {
+            const el = document.documentElement;
+            const scrolled = el.scrollTop + el.clientHeight;
+            const total = el.scrollHeight;
+            const pct = Math.round((scrolled / total) * 100);
+            MILESTONES.forEach(m => {
+                if (pct >= m && !fired.has(m)) {
+                    fired.add(m);
+                    if (typeof window.gtag === 'function') {
+                        window.gtag('event', 'scroll_depth', {
+                            post_slug: post.slug,
+                            post_title: post.title,
+                            depth_percent: m,
+                        });
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            const seconds = Math.round((Date.now() - startTime) / 1000);
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'reading_time', {
+                    post_slug: post.slug,
+                    post_title: post.title,
+                    seconds_spent: seconds,
+                });
+            }
+        };
+    }, [post]);
+
     if (loading) {
         return (
             <div className="blog-post-page">
