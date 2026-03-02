@@ -213,6 +213,13 @@ function Projects({ projects, loading, error }) {
                 {displayed.length} {displayed.length === 1 ? 'project' : 'projects'}
             </p>
 
+            {/* ── Starred hint ────────────────────────────────────────────── */}
+            {onlyStarred && (
+                <p className="projects-hint">
+                    ⭐ Starred repos are shown first. Uncheck <strong>Starred First</strong> to sort by latest activity.
+                </p>
+            )}
+
             {/* ── Grid ───────────────────────────────────────────────────── */}
             {displayed.length === 0 ? (
                 <div className="projects-empty">
