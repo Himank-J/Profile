@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
@@ -11,6 +11,20 @@ import BlogPost from './pages/BlogPost';
 import config from './config';
 import { fetchPosts } from './utils/posts';
 import './index.css';
+
+// Fires a GA4 pageview on every hash-route change
+function RouteTracker() {
+  const location = useLocation();
+  useEffect(() => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_path: location.pathname + location.search,
+        page_location: window.location.href,
+      });
+    }
+  }, [location]);
+  return null;
+}
 
 function App() {
   const [blogs, setBlogs] = useState([]);
@@ -63,6 +77,7 @@ function App() {
     <HelmetProvider>
       <ThemeProvider>
         <HashRouter>
+          <RouteTracker />
           <div className="app">
             <Header />
             <main className="main-content">
