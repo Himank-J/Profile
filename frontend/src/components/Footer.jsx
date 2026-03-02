@@ -1,4 +1,5 @@
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin, Github, Rss } from 'lucide-react';
+import Imprint from './Imprint';
 import './Footer.css';
 
 // Custom X (Twitter) icon since Lucide doesn't have the new X logo
@@ -34,6 +35,19 @@ function Footer() {
                 </a>
             </div>
             <p className="copyright">© 2026 Himank Jain</p>
+            <div className="footer-meta">
+                <Imprint />
+                <a
+                    href="/feed.xml"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="imprint-btn rss-btn"
+                    aria-label="RSS Feed"
+                >
+                    <Rss size={12} />
+                    RSS
+                </a>
+            </div>
         </footer>
     );
 }

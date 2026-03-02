@@ -32,3 +32,23 @@
     color: var(--text-secondary);
     font-size: 0.875rem;
 }
+
+.footer-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.rss-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none;
+}
+
+.rss-btn:hover {
+    color: #f97316;
+    border-color: #f97316;
+}

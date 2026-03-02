@@ -1,0 +1,141 @@
+/* ── Imprint trigger button ─────────────────────────────────────── */
+.imprint-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-top: 0.75rem;
+    transition: color 0.2s, border-color 0.2s;
+    letter-spacing: 0.02em;
+}
+
+.imprint-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ── Overlay ────────────────────────────────────────────────────── */
+.imprint-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Modal panel ────────────────────────────────────────────────── */
+.imprint-modal {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.2s ease;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+.imprint-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.imprint-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+}
+
+.imprint-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.imprint-close:hover {
+    color: var(--text);
+    background: var(--surface);
+}
+
+/* ── Body ───────────────────────────────────────────────────────── */
+.imprint-body {
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.imprint-body section h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin: 0 0 0.5rem;
+}
+
+.imprint-body section p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0 0 0.6rem;
+}
+
+.imprint-body section p:last-child {
+    margin-bottom: 0;
+}
+
+.imprint-body a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.imprint-body a:hover {
+    text-decoration: underline;
+}

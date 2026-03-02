@@ -33,8 +33,9 @@ class GitHubSource(ProjectSource):
                     break
                 
                 for repo in repos:
-                    # Skip forks and profile readme repo
-                    if repo.get('fork') or repo['name'] == self.username:
+                    # Skip forks, profile readme repo, and portfolio repo
+                    EXCLUDED = {self.username, 'Profile'}
+                    if repo.get('fork') or repo['name'] in EXCLUDED:
                         continue
                         
                     # Handle GitHub's ISO format

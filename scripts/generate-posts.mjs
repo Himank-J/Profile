@@ -7,6 +7,7 @@
  * and writes:
  *   - frontend/public/posts.json   (post index consumed by the React app)
  *   - frontend/public/sitemap.xml  (for search engines)
+ *   - frontend/public/feed.xml     (RSS 2.0 feed for subscribers)
  */
 
 import { readdir, readFile, writeFile, mkdir, copyFile } from 'fs/promises';
@@ -285,6 +286,39 @@ ${urlEntries}
 
     await writeFile(join(OUT_DIR, 'sitemap.xml'), sitemap, 'utf-8');
     console.log(`✅ Wrote sitemap.xml with ${staticPages.length + posts.length} URL(s)`);
+
+    // ---------------------------------------------------------------------------
+    // Write feed.xml (RSS 2.0)
+    // ---------------------------------------------------------------------------
+    const rssItems = posts.map(p => {
+        const postUrl = `${SITE_URL}/#/blog/${p.slug}`;
+        const pubDate = p.date ? new Date(p.date).toUTCString() : '';
+        const categories = (p.tags || []).map(t => `      <category>${t}</category>`).join('\n');
+        return `
+    <item>
+      <title><![CDATA[${p.title}]]></title>
+      <link>${postUrl}</link>
+      <guid isPermaLink="true">${postUrl}</guid>
+      <description><![CDATA[${p.description}]]></description>${pubDate ? `
+      <pubDate>${pubDate}</pubDate>` : ''}${categories ? `
+${categories}` : ''}
+    </item>`;
+    }).join('');
+
+    const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Himank Jain</title>
+    <link>${SITE_URL}</link>
+    <description>Writing on AI, LLMs, and systems by Himank Jain.</description>
+    <language>en-us</language>
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>${rssItems}
+  </channel>
+</rss>`;
+
+    await writeFile(join(OUT_DIR, 'feed.xml'), rssFeed, 'utf-8');
+    console.log(`✅ Wrote feed.xml with ${posts.length} post(s)`);
 }
 
 main().catch(err => {
