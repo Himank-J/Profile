@@ -2,8 +2,8 @@
  * Fetch utility for custom blog posts.
  * Posts are served from /posts.json — compiled at build time by generate-posts.mjs.
  * Uses import.meta.env.BASE_URL so paths resolve correctly:
- *   - locally:        /posts.json       (base = '/')
- *   - GitHub Pages:   /Profile/posts.json  (base = '/Profile/')
+ *   - locally:        /posts.json  (base = '/')
+ *   - himankj.com:    /posts.json  (base = '/')
  */
 
 let cachedPosts = null;
