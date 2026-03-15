@@ -207,3 +207,68 @@ The complexity becomes roughly: **O(n)**
 
 ---
 
+## KV-Cache Warmup Strategies
+
+In transformer models, every token generates key and value tensors used by the attention mechanism. These are stored in memory as the KV cache.
+
+During generation, the model uses this cache instead of recomputing attention for all previous tokens. 
+
+A KV-cache warmup strategy takes this one step further, instead of building the cache during a user request, the system precomputes and stores it ahead of time.
+
+Example:
+
+Many prompts start with the same system instruction:
+
+"You are a helpful AI assistant that answers questions clearly."
+
+```
+Without warmup:
+
+Request arrives
+→ model recomputes KV cache for system prompt
+→ generation begins
+```
+
+```
+With KV-cache warmup:
+
+System prompt KV cache already stored
+→ reuse cache immediately
+→ generation begins faster
+```
+
+This eliminates repeated computation and reduces time to first token.
+
+### Why This Technique Improves Latency
+Prompt processing is often the most expensive step in LLM inference. If a shared prompt prefix exists across many requests, repeatedly recomputing it wastes compute cycles.
+
+KV-cache warmup avoids this by reusing precomputed attention states.
+Instead of:
+```
+Compute KV for:
+system prompt + user prompt
+```
+The system only computes:
+```
+Compute KV for:
+user prompt
+```
+The KV cache for the shared prefix is simply loaded from memory. This reduces the workload during the prefill phase, which directly lowers first-token latency.
+
+### Types of KV-Cache Warmup Strategies
+
+1. Static Prefix Cache: The system precomputes KV caches for known prompt prefixes which includes system instructions, safety prompts, RAG templates and even tool instructions. 
+
+> Benefit: lower first-token latency
+
+2. Prompt Template Caching: Many applications use prompt templates like: 
+
+   "You are an expert financial analyst. Answer the following question." 
+
+   Instead of recomputing this every time, the KV cache for the template can be stored. Only the dynamic parts of the prompt require computation.
+
+3. Session-Level KV Reuse: In chat applications, conversation history grows with each turn. The KV cache from previous turns can be reused instead of recomputing the entire conversation.
+
+4. Retrieval Prefix Caching (RAG Systems): Retrieval pipelines often reuse similar context chunks. If frequently retrieved documents appear repeatedly, their KV cache can be reused across requests. This can significantly accelerate retrieval-augmented generation pipelines.
+
+---
