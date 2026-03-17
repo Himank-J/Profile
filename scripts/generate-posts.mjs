@@ -246,7 +246,7 @@ async function main() {
                 : null,
             source: 'Custom',
             // Inline the markdown body so the frontend needs no extra fetch
-            body: content.trim(),
+            body: content.replace(/\/content\/uploads\//g, '/uploads/').trim(),
         });
     }
 
