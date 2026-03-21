@@ -10,6 +10,44 @@ tags:
 ---
 ![]()
 
+## Introduction
+
+Over the past couple of years, the default answer to improving LLM performance has been simple:
+
+> “Throw more GPUs at it.”
+
+But that approach doesn’t scale — not for startups, not for individual builders, and honestly, not even for large companies trying to stay cost-efficient.
+
+What’s far more interesting is this:
+
+> Some of the most capable open-source ecosystems today — like those around models from **DeepSeek** and **Qwen** — don’t just rely on brute-force compute.
+
+They rely on smart system design and clever optimization strategies. These systems extract more performance from the same hardware by:
+
+\- avoiding redundant computation
+- restructuring workloads
+- exploiting patterns in how language models actually behave
+
+And the result?
+
+👉 Faster responses
+👉 Lower costs
+👉 Better scalability
+
+All without “burning millions on GPUs.”
+
+In this post, we’re going to focus on one critical dimension:
+
+> Latency — how fast your LLM responds
+
+We’ll break down **5 practical, production-ready techniques** that can significantly boost latency for open-source models, and more importantly:
+
+\- how they work internally
+- when they actually make sense
+- and how to think about them as a system, not isolated tricks
+
+---
+
 ## First-Token Latency vs Throughput Separation
 
 One of the biggest challenges in production LLM systems is balancing **how fast a response starts** vs **how many responses a system can serve at once**.
@@ -201,11 +239,12 @@ The complexity becomes roughly: **O(n)**
    * Benefit: faster decode operations
 
 ### When Should You Use This Technique?
-- Serving Long Prompts: document QA, RAG systems
-- Handling Many Concurrent Users
-- Generating Long Responses
 
----
+* Serving Long Prompts: document QA, RAG systems
+* Handling Many Concurrent Users
+* Generating Long Responses
+
+- - -
 
 ## KV-Cache Warmup Strategies
 
@@ -240,19 +279,24 @@ System prompt KV cache already stored
 This eliminates repeated computation and reduces time to first token.
 
 ### Why This Technique Improves Latency
+
 Prompt processing is often the most expensive step in LLM inference. If a shared prompt prefix exists across many requests, repeatedly recomputing it wastes compute cycles.
 
 KV-cache warmup avoids this by reusing precomputed attention states.
 Instead of:
+
 ```
 Compute KV for:
 system prompt + user prompt
 ```
+
 The system only computes:
+
 ```
 Compute KV for:
 user prompt
 ```
+
 The KV cache for the shared prefix is simply loaded from memory. This reduces the workload during the prefill phase, which directly lowers first-token latency.
 
 ### Types of KV-Cache Warmup Strategies
@@ -266,9 +310,272 @@ The KV cache for the shared prefix is simply loaded from memory. This reduces th
    "You are an expert financial analyst. Answer the following question." 
 
    Instead of recomputing this every time, the KV cache for the template can be stored. Only the dynamic parts of the prompt require computation.
-
 3. Session-Level KV Reuse: In chat applications, conversation history grows with each turn. The KV cache from previous turns can be reused instead of recomputing the entire conversation.
-
 4. Retrieval Prefix Caching (RAG Systems): Retrieval pipelines often reuse similar context chunks. If frequently retrieved documents appear repeatedly, their KV cache can be reused across requests. This can significantly accelerate retrieval-augmented generation pipelines.
 
----
+- - -
+
+## Chunked Prefill
+
+Processing long prompts is one of the biggest sources of latency in LLM systems. This causes two problems:
+
+* Long first-token latency
+* GPU scheduling inefficiencies
+
+Chunked prefill addresses this by breaking large prompts into smaller chunks that are processed incrementally, allowing the system to interleave prompt processing with other requests.
+
+![](/content/uploads/chunked_prefill.svg)
+
+Example prompt:
+
+User prompt = 2000 tokens
+
+```
+Without chunking:
+
+Process 2000 tokens in one large prefill pass
+```
+
+```
+With chunked prefill:
+
+Process tokens 1–256
+Process tokens 257–512
+Process tokens 513–768
+...
+```
+
+Each chunk updates the KV cache incrementally, gradually building the context needed for generation.
+
+This allows the system to pause and schedule other requests between chunks, improving GPU utilization.
+
+### Why This Technique Improves Latency
+
+Large prompts can monopolize GPU resources for a long time.
+
+```
+Request A → 3000 token prompt
+Request B → 10 token prompt
+
+# Without chunked prefill:
+GPU processes entire 3000-token prompt first
+Request B waits. This creates head-of-line blocking.
+
+# With chunked prefill:
+Process chunk of Request A
+Switch to Request B
+Resume Request A
+```
+
+The scheduler can interleave workloads so small prompts aren't delayed by large ones. The result:
+
+* lower average latency
+* better fairness across requests
+* higher GPU utilization
+
+### When Should You Use Chunked Prefill?
+
+Chunked prefill becomes particularly valuable when prompts are very long or highly variable in length like RAG systems, Document QA or Multi-User AI Platforms.
+
+### Key Concepts Behind This Technique
+
+* Head-of-Line Blocking: A situation where a large request blocks smaller ones waiting behind it.
+
+- - -
+
+## Speculative Decoding
+
+Generating text with large language models is inherently slow and sequential. Each token depends on the previous one. This makes decoding difficult to parallelize and limits how fast responses can be generated.
+
+Speculative decoding breaks this bottleneck. It is a technique where:
+
+1. A small, fast model (draft model) generates multiple candidate tokens
+2. A large, accurate model (target model) verifies them in parallel
+3. Accepted tokens are committed, rejected ones are recomputed
+
+Instead of generating one token at a time, the system generates multiple tokens per step.
+
+**Basic Workflow**
+
+```
+Without speculative decoding:
+
+Large model generates:
+Token 1 → Token 2 → Token 3 → Token 4
+```
+
+```
+With speculative decoding:
+
+Small model guesses:
+Token 1, 2, 3, 4
+
+Large model verifies them in one pass
+```
+
+This reduces the number of expensive forward passes of the large model.
+
+### Why This Technique Improves Latency
+
+The bottleneck in LLM inference is the decode phase, where tokens are generated sequentially. Each token requires:
+
+* a forward pass through the model
+* memory access to KV cache
+* synchronization overhead
+
+Speculative decoding reduces the number of large model invocations.
+
+*Without Speculation*: 4 tokens → 4 large model forward passes
+
+*With Speculation*: 4 tokens → 1 large model forward pass + small model work
+
+Since the small model is much faster, the overall latency drops significantly.
+
+**Net Effect**
+
+* Fewer large-model calls → lower latency
+* Parallel verification → faster decoding
+
+### Internal Mechanism Behind the Speedup
+
+Speculative decoding works by combining:
+
+* probabilistic sampling
+* parallel verification
+* accept/reject logic
+
+![](/content/uploads/speculative_decoding.svg)
+
+**Step 1: Draft Model Generates Tokens**
+
+A smaller model predicts a sequence:
+
+```
+t₁, t₂, t₃, t₄
+```
+
+**Step 2: Target Model Verifies**
+
+The large model processes all tokens in parallel and computes probabilities.
+
+**Step 3: Acceptance Check**
+
+Tokens are accepted if they match the distribution of the large model.
+
+Simplified logic:
+
+If draft_token is likely under target model → accept
+
+Else → reject and recompute
+
+**Step 4: Continue Generation**
+
+Accepted tokens are committed, and generation continues from the last valid token.
+
+### When Should You Use Speculative Decoding?
+
+This technique is highly effective in decode-heavy workloads.
+
+* Long Text Generation
+* High Throughput Systems
+* When a Smaller Model is Available
+
+### Practical Implementation Considerations
+
+**Model Pair Selection**
+
+The draft model should be significantly faster and have similar token distribution patterns. Poor alignment leads to high rejection rates.
+
+**KV Cache Management**
+
+Both models maintain their own KV caches. Efficient cache handling is critical for performance.
+
+**Hardware Utilization**
+
+The small model can run on:
+
+* CPU
+* separate GPU
+* or shared GPU with scheduling
+
+- - -
+
+## My Recommendations for Top 2 strategies:
+
+🥇 **1. Speculative Decoding (Most Impactful)**
+
+This is the only technique that directly breaks the decode bottleneck, which is the biggest latency contributor in LLMs.
+
+**Real Gains**
+
+* 2–3× faster generation in practice
+* ~60% reduction in token latency in real benchmarks
+
+**Tradeoffs**
+
+* Needs 2 models (draft + target)
+* Requires GPU headroom
+* Acceptance rate dependent
+
+🥈 **2. Prefix Caching (System Prompt KV Reuse)**
+
+This is exactly what we discussed in "KV-Cache Warmup Strategies" section. This gives massive first-token latency (TTFT) improvement, especially in real apps.
+
+**Real Gains**
+
+* Eliminates repeated prefill compute
+* Can reduce TTFT drastically in agent workloads
+
+**Tradeoffs**
+
+* Cache invalidation is tricky
+* Needs strict prompt consistency
+* GPU memory pressure
+
+- - -
+
+## Conclusion
+
+It’s easy to fall into the trap of obvious solutions:
+
+* bigger models
+* more GPUs
+* more infrastructure
+
+But the real leverage in LLM systems doesn’t come from scaling blindly. It comes from thinking smarter about computation.
+
+The techniques we explored show a consistent pattern:
+
+* Don’t recompute what you already know → Prefix caching, KV reuse
+* Don’t block the system unnecessarily → Chunked prefill
+* Don’t process tokens sequentially if you don’t have to → Speculative decoding
+* Don’t treat all workloads the same → Prefill vs decode optimization
+
+These strategies do more than just improve latency. They force you to understand:
+
+```
+how transformers actually compute
+where time is really spent (prefill vs decode)
+how memory, compute, and scheduling interact
+```
+
+And once you see that clearly, optimization stops being guesswork.
+
+The goal isn’t just to make models faster. The goal is to make them efficient by design.
+
+Because in the long run: **Smart systems > Expensive systems**
+
+If you take one thing away from this post, let it be this:
+
+Before scaling up your hardware, ask —
+“Am I fully utilizing the computation I already have?”
+
+That question alone will take you further than most optimizations ever will.
+
+- - -
+
+🎉 If this explanation made you go “huh, that makes sense!” then you DEFINITELY need to subscribe!
+
+I’m Himank, a SDE-III AI/ML Engineer at Google 🧑‍💻✨. I take all those mind-boggling, cutting-edge AI concepts and turn them into something that even your grandma would get.
+
+Follow along if you’re ready to ride the AI wave and laugh your way to understanding! 🌊
