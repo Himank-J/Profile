@@ -15,7 +15,7 @@ image: /content/uploads/screenshot-2026-03-22-at-6.47.30 pm.png
 
 ## Introduction
 
-Over the past couple of years, the default answer to improving LLM performance has been simple:
+Most often the default answer to improving LLM performance has been simple:
 
 > “Throw more GPUs at it.”
 
@@ -27,9 +27,9 @@ What’s far more interesting is this:
 
 They rely on smart system design and clever optimization strategies. These systems extract more performance from the same hardware by:
 
-\- avoiding redundant computation
-- restructuring workloads
-- exploiting patterns in how language models actually behave
+* avoiding redundant computation
+* restructuring workloads
+* exploiting patterns in how language models actually behave
 
 And the result?
 
@@ -45,11 +45,11 @@ In this post, we’re going to focus on one critical dimension:
 
 We’ll break down **5 practical, production-ready techniques** that can significantly boost latency for open-source models, and more importantly:
 
-\- how they work internally
-- when they actually make sense
-- and how to think about them as a system, not isolated tricks
+* how they work internally
+* when they actually make sense
+* and how to think about them as a system, not isolated tricks
 
----
+- - -
 
 ## First-Token Latency vs Throughput Separation
 
