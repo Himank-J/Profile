@@ -7,6 +7,9 @@ tags:
   - Transformers
   - KV Cache
   - Latency Optimisation
+  - Prefill&Decode
+  - Speculative Decoding
+image: /content/uploads/screenshot-2026-03-22-at-6.47.30 pm.png
 ---
 ![]()
 
