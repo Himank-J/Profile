@@ -132,6 +132,8 @@ async function generateDecapConfig() {
   base_url: ${API_URL}
   auth_endpoint: /api/auth
 
+publish_mode: editorial_workflow
+
 media_folder: content/uploads
 public_folder: /content/uploads
 
