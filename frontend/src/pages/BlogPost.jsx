@@ -255,7 +255,15 @@ function BlogPost() {
                                         key={item.id} 
                                         className={`toc-level-${item.level} ${activeId === item.id ? 'active' : ''}`}
                                     >
-                                        <a href={`#${item.id}`}>{item.title}</a>
+                                        <a 
+                                            href={`#${item.id}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                                            }}
+                                        >
+                                            {item.title}
+                                        </a>
                                     </li>
                                 ))}
                             </ul>
