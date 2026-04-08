@@ -18,11 +18,28 @@ function resolveImg(src) {
     return `${BASE}${src}`;
 }
 
-// Custom img renderer for ReactMarkdown
+function getText(node) {
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) return node.map(getText).join('');
+    if (node && node.props && node.props.children) return getText(node.props.children);
+    return '';
+}
+
+// Custom renderers for ReactMarkdown
 const mdComponents = {
     img({ src, alt, ...props }) {
         return <img src={resolveImg(src)} alt={alt} loading="lazy" {...props} />;
     },
+    h2({ children, ...props }) {
+        const text = getText(children);
+        const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        return <h2 id={id} {...props}>{children}</h2>;
+    },
+    h3({ children, ...props }) {
+        const text = getText(children);
+        const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        return <h3 id={id} {...props}>{children}</h3>;
+    }
 };
 
 function BlogPost() {
@@ -30,6 +47,9 @@ function BlogPost() {
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [toc, setToc] = useState([]);
+    const [activeId, setActiveId] = useState('');
+    const [readingTime, setReadingTime] = useState(0);
 
     useEffect(() => {
         setLoading(true);
@@ -45,6 +65,50 @@ function BlogPost() {
                 setLoading(false);
             });
     }, [slug]);
+
+    useEffect(() => {
+        if (!post) return;
+
+        // Reading time
+        const words = post.body.trim().split(/\s+/).length;
+        setReadingTime(Math.ceil(words / 200));
+
+        // TOC
+        const headings = [];
+        const lines = post.body.split('\n');
+        for (const line of lines) {
+            const match = line.match(/^(#{2,3})\s+(.+)$/);
+            if (match) {
+                const level = match[1].length;
+                const title = match[2];
+                const id = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                headings.push({ title, id, level });
+            }
+        }
+        setToc(headings);
+    }, [post]);
+
+    useEffect(() => {
+        if (!post || toc.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setActiveId(entry.target.id);
+                    }
+                });
+            },
+            { rootMargin: '0% 0% -80% 0%' }
+        );
+
+        toc.forEach(item => {
+            const element = document.getElementById(item.id);
+            if (element) observer.observe(element);
+        });
+
+        return () => observer.disconnect();
+    }, [post, toc]);
 
     // ── Scroll depth + Reading time tracking ──────────────────────────────
     useEffect(() => {
@@ -142,37 +206,62 @@ function BlogPost() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <Link to="/" className="back-link">
-                <ArrowLeft size={16} /> Back to Index
-            </Link>
+            <div className="blog-post-layout">
+                <div className="blog-post-left">
+                    <Link to="/" className="back-link">
+                        <ArrowLeft size={16} /> Back
+                    </Link>
+                    <div className="post-sidebar-meta">
+                        <div className="post-sidebar-date">{post.displayDate || post.date}</div>
+                        <div className="post-reading-time">{readingTime} min read</div>
+                    </div>
+                </div>
 
-            <header className="post-header">
-                <h1 className="post-title">{post.title}</h1>
-                <div className="post-meta">
-                    <span>{post.displayDate || post.date}</span>
-                    {post.tags?.length > 0 && (
-                        <div className="post-tags">
-                            {post.tags.map(tag => (
-                                <span key={tag} className="tag">{tag}</span>
-                            ))}
-                        </div>
+                <div className="blog-post-center">
+                    <header className="post-header">
+                        <h1 className="post-title">{post.title}</h1>
+                        {post.tags?.length > 0 && (
+                            <div className="post-tags">
+                                {post.tags.map(tag => (
+                                    <span key={tag} className="tag">{tag}</span>
+                                ))}
+                            </div>
+                        )}
+                    </header>
+
+                    {post.image && (
+                        <img
+                            className="post-cover"
+                            src={resolveImg(post.image)}
+                            alt={post.title}
+                            loading="lazy"
+                        />
+                    )}
+
+                    <div className="post-body">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+                            {post.body}
+                        </ReactMarkdown>
+                    </div>
+                </div>
+
+                <div className="blog-post-right">
+                    {toc.length > 0 && (
+                        <nav className="post-toc">
+                            <h3>Index</h3>
+                            <ul>
+                                {toc.map(item => (
+                                    <li 
+                                        key={item.id} 
+                                        className={`toc-level-${item.level} ${activeId === item.id ? 'active' : ''}`}
+                                    >
+                                        <a href={`#${item.id}`}>{item.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
                     )}
                 </div>
-            </header>
-
-            {post.image && (
-                <img
-                    className="post-cover"
-                    src={resolveImg(post.image)}
-                    alt={post.title}
-                    loading="lazy"
-                />
-            )}
-
-            <div className="post-body">
-                <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
-                    {post.body}
-                </ReactMarkdown>
             </div>
         </div>
     );
