@@ -5,6 +5,8 @@ backend:
   base_url: https://profilebackend-rho.vercel.app
   auth_endpoint: /api/auth
 
+publish_mode: editorial_workflow
+
 media_folder: content/uploads
 public_folder: /content/uploads
 
