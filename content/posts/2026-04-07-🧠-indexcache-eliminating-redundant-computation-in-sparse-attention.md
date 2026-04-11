@@ -184,3 +184,46 @@ IndexCache doesn’t:
 * Change attention mechanism
 * Modify model architecture significantly
 * Require heavy retraining (in basic form)
+
+---
+
+## Working of Indexcache
+
+At a high level, IndexCache modifies how the indexer is used across transformer layers.
+
+Instead of treating every layer independently, it introduces controlled sharing of index computations across layers.
+
+### Core Mechanism: Full vs Shared Layers
+The fundamental idea behind IndexCache is to split transformer layers into two types:
+
+1. Full Layers (F)
+- Run the indexer normally
+- Compute fresh top-k token indices
+- Update the cache
+
+2. Shared Layers (S)
+- Skip indexer computation entirely
+- Reuse indices from the most recent Full layer
+
+Execution Flow
+```
+Layer 1 (F) → compute indices → cache  
+Layer 2 (S) → reuse cached indices  
+Layer 3 (S) → reuse cached indices  
+Layer 4 (F) → recompute → update cache  
+```
+
+**What exactly is being cached?**
+
+Not embeddings, not attention weights but only the top-k token indices. These top-k tokens are the only tokens considered for attention computation.
+
+### Layer Selection Strategy
+
+Which layers should be Full and which should be Shared?
+One simple way is to use **Alternate layers → F S F S F S**
+
+But this doesn’t work well because as different layers play different roles:
+- Early layers → syntactic patterns
+- Middle layers → semantic aggregation
+- Late layers → reasoning/refinement
+
