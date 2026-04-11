@@ -15,13 +15,17 @@ tags:
 
 Large Language Models (LLMs) have become incredibly powerful—but they come with a fundamental challenge: scaling efficiently to long contexts.
 
-Whether you're building:
+Whether you're building document-heavy RAG systems, multi-step AI agents, or
+enterprise pipelines (like claims processing), one inevitably hit the same wall - attention computation becomes expensive as input length grows.
 
-document-heavy RAG systems,
-multi-step AI agents, or
-enterprise pipelines (like claims processing),
+In my previous blog — [Techniques to Boost LLM Latency in Production](https://himankj.com/#/blog/2026-03-14-techniques-to-boost-llm-latency-in-production)
+ — I explored five key techniques that help reduce latency in real-world systems, focusing on system-level optimizations, better orchestration, caching strategies, and efficient model serving. Those techniques primarily targeted end-to-end pipeline improvements.
 
-you inevitably hit the same wall: attention computation becomes expensive as input length grows.
+In this blog, we go one level deeper. Instead of optimizing around the model, we focus on optimizing within the model itself—specifically:
+
+**"How attention computation inside transformers can be made more efficient"**
+
+This is where recent innovations like **IndexCache** come into play.
 
 Over the past few years, several optimizations have been proposed to tackle this. One of the most promising directions is Sparse Attention, where models focus only on the most relevant tokens instead of attending to everything.
 
@@ -145,9 +149,11 @@ In summary, DSA successfully reduces attention cost, but shifts the bottleneck t
 
 ### Indexcache
 
+![](/content/uploads/indexcache_layer_sharing_diagram.svg)
+
 **Core Idea**
 
-> Don’t recompute token importance at every layer—reuse it.
+> Don’t recompute token importance at every layer, instead reuse it.
 
 **Intuition**
 Instead of running the indexer at every layer:
@@ -185,7 +191,7 @@ IndexCache doesn’t:
 * Modify model architecture significantly
 * Require heavy retraining (in basic form)
 
----
+- - -
 
 ## Working of Indexcache
 
@@ -194,18 +200,22 @@ At a high level, IndexCache modifies how the indexer is used across transformer 
 Instead of treating every layer independently, it introduces controlled sharing of index computations across layers.
 
 ### Core Mechanism: Full vs Shared Layers
+
 The fundamental idea behind IndexCache is to split transformer layers into two types:
 
 1. Full Layers (F)
-- Run the indexer normally
-- Compute fresh top-k token indices
-- Update the cache
+
+* Run the indexer normally
+* Compute fresh top-k token indices
+* Update the cache
 
 2. Shared Layers (S)
-- Skip indexer computation entirely
-- Reuse indices from the most recent Full layer
+
+* Skip indexer computation entirely
+* Reuse indices from the most recent Full layer
 
 Execution Flow
+
 ```
 Layer 1 (F) → compute indices → cache  
 Layer 2 (S) → reuse cached indices  
@@ -223,7 +233,116 @@ Which layers should be Full and which should be Shared?
 One simple way is to use **Alternate layers → F S F S F S**
 
 But this doesn’t work well because as different layers play different roles:
-- Early layers → syntactic patterns
-- Middle layers → semantic aggregation
-- Late layers → reasoning/refinement
 
+* Early layers → syntactic patterns
+* Middle layers → semantic aggregation
+* Late layers → reasoning/refinement
+
+#### Training-Free Approach
+
+This is the only place where layers are explicitly chosen.
+
+1. In this approach we start with a baseline where all layers are considered as full layers
+
+> F F F F F F F F   (all layers compute index)
+
+2. Try converting one layer to Shared:
+
+> Example: F F S F F F F F
+
+3. Evaluate model performance (loss, accuracy, etc.)
+4. If performance drop is small we can keep it or else we will revert back to full layer
+5. Repeat this process layer by layer
+
+Essentially we are doing a greedy search over layers to identify “Which layers can safely reuse indices without hurting accuracy?”
+
+**Key Insight** - Sensitive layers should be full layers whereas redundant layers can be shared ones.
+
+#### Training aware optimization
+
+Here instead of training the indexer for one layer, we train it for multiple layers at once. We are telling the indexer:
+
+> “Don’t specialize for one layer, instead learn a general notion of token importance that works across multiple layers.”
+
+It makes it possible for one Full layer to serve multiple Shared layers reliably
+
+In training-free we reuse indices from layer l for layer l+1. The indexer at layer 
+l was trained to approximate Attention(l) but now we are extending this for next layer (Attention(l+1)) and next one (Attention(l+2)). **As we keep using Attention calculated for layer 1 across other layers the error starts accumulating.**
+
+With Training-Aware we retrain the indexer so that it works well for multiple layers.
+
+**How It Works**
+
+1. Define Layer Groups
+
+We group layers such that one Full layer will serve multiple Shared layers
+
+```
+Example:
+
+Group 1: Layers [1, 2, 3, 4]
+Group 2: Layers [5, 6, 7, 8]
+```
+
+\-> Layer 1 and 5 will be Full layers
+
+2. Compute True Attention
+   For each layer in a group, compute the actual attention distribution: A1, A2, A3, A4.
+   These come from: softmax(QK^T)
+3. Aggregate across layers
+
+   > Average(Attention_1, Attention_2, Attention_3, Attention_4)
+
+Why avg?
+
+* Attention patterns across nearby layers are similar
+* Averaging captures shared importance structure
+* Reduces layer-specific noise
+
+4. Train Indexer to Match This Target
+
+Now the indexer is trained to approximate: A_avg
+	​
+
+5. Now we can use this indexer at inference. Because indexer was trained for all these layers, reuse is reliable
+
+#### Complexity Reduction
+
+Lets assume - 
+
+Total layers = 𝑁
+Full layers = 𝑀
+
+Then:
+
+> Indexer cost reduction ≈ 1−𝑀/𝑁
+
+Example
+Total layers = 32\
+Full layers = 8  
+
+→ 75% reduction in indexer computation
+
+- - -
+
+## Conclusion
+
+As LLMs continue to scale to longer contexts and more complex workloads, the real challenge is no longer just model quality—it’s efficiently utilizing compute.
+
+Sparse attention methods like DeepSeek Sparse Attention (DSA) take an important step by reducing the cost of attention itself. But as we’ve seen, this introduces a new bottleneck: the indexer, which still operates at quadratic complexity and is repeatedly executed across layers.
+
+IndexCache addresses this inefficiency with a simple yet powerful insight:
+
+Token importance is largely stable across layers—so we don’t need to recompute it every time.
+
+By reusing top-k token selections across layers, IndexCache eliminates a significant portion of redundant computation without fundamentally changing the model architecture. The addition of training-aware optimization further strengthens this approach, enabling more aggressive reuse while maintaining accuracy.
+
+Equally important is how IndexCache fits into the broader inference stack. It complements existing optimizations like KV Cache by targeting a different axis of inefficiency—depth instead of time—making it especially valuable for long-context and document-heavy applications.
+
+---
+
+🎉 If this explanation made you go “huh, that makes sense!” then you DEFINITELY need to subscribe!
+
+I’m Himank, a SDE-III AI/ML Engineer at Google 🧑‍💻✨. I take all those mind-boggling, cutting-edge AI concepts and turn them into something that even your grandma would get.
+
+Follow along if you’re ready to ride the AI wave and laugh your way to understanding! 🌊
