@@ -6,7 +6,19 @@
     <description>Writing on AI, LLMs, and systems by Himank Jain.</description>
     <language>en-us</language>
     <atom:link href="https://himank-j.github.io/Profile/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 08 Apr 2026 16:45:24 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 18:30:11 GMT</lastBuildDate>
+    <item>
+      <title><![CDATA[🧠 IndexCache: Eliminating Redundant Computation in Sparse Attention]]></title>
+      <link>https://himank-j.github.io/Profile/#/blog/2026-04-07-🧠-indexcache-eliminating-redundant-computation-in-sparse-attention</link>
+      <guid isPermaLink="true">https://himank-j.github.io/Profile/#/blog/2026-04-07-🧠-indexcache-eliminating-redundant-computation-in-sparse-attention</guid>
+      <description><![CDATA[IndexCache is an architectural acceleration method designed]]></description>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+      <category>DSA</category>
+      <category>Sparse Attention</category>
+      <category>Index Cache</category>
+      <category>Memory Optimization</category>
+      <category>Latency</category>
+    </item>
     <item>
       <title><![CDATA[Techniques to Boost LLM latency in Production]]></title>
       <link>https://himank-j.github.io/Profile/#/blog/2026-03-14-techniques-to-boost-llm-latency-in-production</link>
