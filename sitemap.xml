@@ -17,6 +17,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://himank-j.github.io/Profile/#/blog/2026-04-18-harness-engineering-control-plane-for-agentic-systems</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://himank-j.github.io/Profile/#/blog/2026-04-07-🧠-indexcache-eliminating-redundant-computation-in-sparse-attention</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

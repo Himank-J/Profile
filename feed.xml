@@ -6,7 +6,22 @@
     <description>Writing on AI, LLMs, and systems by Himank Jain.</description>
     <language>en-us</language>
     <atom:link href="https://himank-j.github.io/Profile/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sat, 11 Apr 2026 18:30:11 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 12:31:03 GMT</lastBuildDate>
+    <item>
+      <title><![CDATA[Harness Engineering: Control Plane for Agentic Systems]]></title>
+      <link>https://himank-j.github.io/Profile/#/blog/2026-04-18-harness-engineering-control-plane-for-agentic-systems</link>
+      <guid isPermaLink="true">https://himank-j.github.io/Profile/#/blog/2026-04-18-harness-engineering-control-plane-for-agentic-systems</guid>
+      <description><![CDATA[Agentic systems promise autonomy, reasoning, and adaptability—but]]></description>
+      <pubDate>Sun, 19 Apr 2026 00:00:00 GMT</pubDate>
+      <category>Agentic Systems</category>
+      <category>AI Architecture</category>
+      <category>LLMEngineering</category>
+      <category>Harness</category>
+      <category>Tools</category>
+      <category>MCP</category>
+      <category>Context Memory</category>
+      <category>Guardrails</category>
+    </item>
     <item>
       <title><![CDATA[🧠 IndexCache: Eliminating Redundant Computation in Sparse Attention]]></title>
       <link>https://himank-j.github.io/Profile/#/blog/2026-04-07-🧠-indexcache-eliminating-redundant-computation-in-sparse-attention</link>
