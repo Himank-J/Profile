@@ -21,13 +21,13 @@ image: /content/uploads/chatgpt-image-apr-19-2026-12_33_26-pm.png
 
 ## Introduction
 
-Most engineers today are already interacting with powerful models via Claude Code, Cursor, GitHub Copilot, or Antigravity. Underneath many of these systems sits the same or similar class of models—say a variant like Claude Opus.
+Most engineers today are already interacting with powerful models via Claude Code, Cursor, GitHub Copilot, or Antigravity. Underneath many of these systems sits the same or similar class of models, say a variant like Claude Opus.
 
-Now here’s something subtle—but important.
+Now here’s something subtle but important.
 
 You ask the same question, to the same model, across these tools… and you get different outputs.
 
-Not slightly different—sometimes structurally different.
+Not slightly different, sometimes structurally different.
 Different reasoning paths. Different tool usage. Different levels of correctness.
 
 At first glance, this feels counterintuitive. If the model is the same, shouldn’t the output also be the same? But in practice, it isn’t. And the reason lies in something most people aren’t explicitly thinking about: **the system around the model.**
@@ -56,7 +56,7 @@ The difference isn’t just the model—it’s everything wrapped around it:
 * How intermediate steps are executed and validated
 * How outputs are evaluated, retried, or constrained
 
-In other words, You’re not interacting with a model—you’re interacting with a system and that system is quietly shaping every response you see.
+In other words, You’re not interacting with a model, you’re interacting with a system and that system is quietly shaping every response you see.
 
 This “system around the model” is what we call as **Harness** and in this blog we will cover - 
 
