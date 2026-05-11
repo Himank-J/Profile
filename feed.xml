@@ -6,7 +6,20 @@
     <description>Writing on AI, LLMs, and systems by Himank Jain.</description>
     <language>en-us</language>
     <atom:link href="https://himank-j.github.io/Profile/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 24 Apr 2026 06:50:06 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 06:16:18 GMT</lastBuildDate>
+    <item>
+      <title><![CDATA[Engineering Learnings Behind Claude Managed Agents]]></title>
+      <link>https://himank-j.github.io/Profile/#/blog/2026-05-10-engineering-learnings-behind-claude-managed-agents</link>
+      <guid isPermaLink="true">https://himank-j.github.io/Profile/#/blog/2026-05-10-engineering-learnings-behind-claude-managed-agents</guid>
+      <description><![CDATA['Key learnings observed from Anthropic blog on "Scaling Managed]]></description>
+      <pubDate>Mon, 11 May 2026 00:00:00 GMT</pubDate>
+      <category>Agentic Systems</category>
+      <category>AI Architecture</category>
+      <category>Harness</category>
+      <category>Tools</category>
+      <category>Memory</category>
+      <category>Guardrails</category>
+    </item>
     <item>
       <title><![CDATA[Harness Engineering: Control Plane for Agentic Systems]]></title>
       <link>https://himank-j.github.io/Profile/#/blog/2026-04-18-harness-engineering-control-plane-for-agentic-systems</link>
