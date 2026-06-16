@@ -389,8 +389,8 @@ Tool calling is one of the most important advancements enabling AI systems to mo
 
 **Relationship to Other Terms**
 
-- Tool calling is often a building block for Agents, Agentic AI, MCP, Skills and Orchestration frameworks
-- Many modern AI systems rely heavily on tool calling even when they are not considered agents.
+* Tool calling is often a building block for Agents, Agentic AI, MCP, Skills and Orchestration frameworks
+* Many modern AI systems rely heavily on tool calling even when they are not considered agents.
 
 **When It Matters**
 
@@ -399,209 +399,437 @@ Tool calling becomes essential whenever AI systems need access to live data, ent
 - - -
 
 ### 11. MCP (Model Context Protocol)
-Definition
+
+**Definition**
 
 Model Context Protocol (MCP) is an open standard that allows AI models and applications to connect with external tools, data sources, and services through a consistent interface. Rather than building a custom integration for every application, MCP provides a common protocol that both AI systems and tool providers can understand.
 
-Why It Exists
+**Why It Exists**
 
 Before MCP, integrating AI systems with external tools often required custom code for every service. Connecting an AI application to a database, document repository, ticketing system, or internal platform meant building and maintaining separate integrations.
 
 MCP was introduced to standardize this process. It allows tool providers to expose capabilities once and makes them accessible to any MCP-compatible client.
 
-Key Concepts
+**Key Concepts**
 
 MCP is not a tool itself. It is a communication standard.
 
 An MCP server can expose:
 
-Tools and actions
-Documents and resources
-Structured data
-Enterprise systems
+* Tools and actions
+* Documents and resources
+* Structured data
+* Enterprise systems
 
 An MCP client can discover and interact with those capabilities without needing custom integration logic for each provider.
 
 The primary benefit is interoperability. As MCP adoption grows, organizations can integrate new systems more quickly while reducing integration complexity.
 
-Common Misconceptions
+**Common Misconceptions**
 
-MCP Is a Replacement for APIs. MCP typically sits on top of existing systems and APIs. It standardizes how AI applications interact with them.
+*MCP Is a Replacement for APIs*. MCP typically sits on top of existing systems and APIs. It standardizes how AI applications interact with them.
 
-MCP Automatically Makes Systems Agentic. MCP provides access to capabilities. Whether a system behaves agentically depends on how those capabilities are used.
+*MCP Automatically Makes Systems Agentic*. MCP provides access to capabilities. Whether a system behaves agentically depends on how those capabilities are used.
 
-Relationship to Other Terms
+**Relationship to Other Terms**
 
 MCP and Tool Calling are often confused.
-- Tool Calling is the mechanism through which a model invokes a capability.
-- MCP is a standardized way of exposing those capabilities.
+
+* Tool Calling is the mechanism through which a model invokes a capability.
+* MCP is a standardized way of exposing those capabilities.
 
 A useful analogy is that tool calling is the conversation, while MCP defines the language spoken during that conversation.
 
-When It Matters
+**When It Matters**
 
 MCP becomes valuable when integrating AI systems with multiple tools, enterprise applications, knowledge sources, or third-party services, especially in environments where interoperability and maintainability are important.
 
----
+- - -
 
 ### 12. Skills
-Definition
+
+**Definition**
 
 Skills are reusable capabilities that package specific functionality, instructions, tools, workflows, and domain knowledge into a unit that an AI system can invoke when needed. They allow AI applications to perform specialized tasks without embedding all logic directly into the main prompt or agent.
 
-Why It Exists
+**Why It Exists**
 
 As AI systems become more complex, placing every instruction, workflow, and tool inside a single agent quickly becomes difficult to manage.
 
 Skills provide modularity. Instead of building one massive agent, developers can create focused capabilities such as "Document Summarization," "Claims Validation," or "SQL Analysis" and make them available when required.
 
-Key Concepts
+**Key Concepts**
 
 A skill typically combines:
-- Purpose-specific instructions
-- Tool access
-- Domain knowledge
-- Workflow logic
-- Output formatting rules
+
+* Purpose-specific instructions
+* Tool access
+* Domain knowledge
+* Workflow logic
+* Output formatting rules
 
 Skills help reduce prompt complexity, improve maintainability, and encourage reuse across multiple applications.
 
 Organizations often use skills to standardize common business functions while allowing different agents to leverage the same underlying capability.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Skills and Tools Are the Same Thing. A tool usually performs a single action. A skill often combines multiple tools, instructions, and workflows into a higher-level capability.
+*Skills and Tools Are the Same Thing.* A tool usually performs a single action. A skill often combines multiple tools, instructions, and workflows into a higher-level capability.
 
-Skills Replace Agents. Skills are often components used by agents rather than standalone replacements for them.
+*Skills Replace Agents.* Skills are often components used by agents rather than standalone replacements for them.
 
-Relationship to Other Terms
+**Relationship to Other Terms**
 
 Skills and MCP solve different problems.
-- MCP standardizes access to capabilities.
-- Skills package and organize capabilities into reusable business functions.
+
+* MCP standardizes access to capabilities.
+* Skills package and organize capabilities into reusable business functions.
 
 An agent may discover a capability through MCP and then use it as part of a skill-driven workflow.
 
-When It Matters
+**When It Matters**
 
 Skills become increasingly important as organizations scale AI systems and need reusable, maintainable, and domain-specific capabilities that can be shared across multiple applications and agents.
 
----
+- - -
 
 ## Model Optimization Layer
 
 ### 13. Fine-Tuning
-Definition
+
+**Definition**
 
 Fine-tuning is the process of further training a pre-trained language model on additional data to modify its behavior, style, or task performance. Rather than training a model from scratch, fine-tuning starts with an existing foundation model and adapts it to specific requirements.
 
-Why It Exists
+**Why It Exists**
 
 Prompts and retrieval can provide additional information, but they cannot fundamentally change how a model behaves. Organizations sometimes need a model to consistently follow a particular style, perform specialized tasks, or understand domain-specific patterns.
 
 Fine-tuning addresses this by embedding desired behaviors directly into the model's parameters.
 
-Key Concepts
+**Key Concepts**
 
 Fine-tuning is most effective when the goal is behavioral adaptation rather than knowledge injection.
 
 Common use cases include:
-- Structured information extraction
-- Classification tasks
-- Domain-specific writing styles
-- Customer support workflows
-- Specialized reasoning patterns
+
+* Structured information extraction
+* Classification tasks
+* Domain-specific writing styles
+* Customer support workflows
+* Specialized reasoning patterns
 
 One of the key tradeoffs is training cost versus inference cost.
 
 A fine-tuned model requires upfront investment in data preparation, training, evaluation, and deployment. However, once trained, it often requires shorter prompts and less contextual information, which can reduce inference costs over time.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Fine-Tuning Is the Best Way to Add Knowledge. Frequently changing information is usually better handled through RAG.
+*Fine-Tuning Is the Best Way to Add Knowledge.* Frequently changing information is usually better handled through RAG.
 
-Fine-Tuning Makes Models Instantly Better. Poor training data can degrade performance rather than improve it.
+*Fine-Tuning Makes Models Instantly Better.* Poor training data can degrade performance rather than improve it.
 
-When It Matters
+**When It Matters**
 
 Fine-tuning becomes valuable when a behavior must be applied consistently across large volumes of requests and cannot be reliably achieved through prompting or retrieval alone.
 
----
+- - -
 
 ### 14. Synthetic Data
 
-Definition
+**Definition**
 
 Synthetic data is data generated artificially rather than collected from real-world human interactions. In AI systems, synthetic data is often produced by language models and then used for training, fine-tuning, evaluation, or data augmentation.
 
-Why It Exists
+**Why It Exists**
 
 High-quality training data is often expensive, scarce, sensitive, or difficult to obtain. Synthetic data helps address these challenges by generating additional examples that would otherwise require significant manual effort.
 
 As modern models improve, synthetic data has become an increasingly important part of AI development pipelines.
 
-Key Concepts
+**Key Concepts**
 
 Synthetic data can be used to:
-- Expand small datasets
-- Generate edge cases
-- Create instruction-following examples
-- Produce evaluation datasets
-- Improve class balance
+
+* Expand small datasets
+* Generate edge cases
+* Create instruction-following examples
+* Produce evaluation datasets
+* Improve class balance
 
 It is particularly useful when organizations possess limited labeled data or when privacy concerns restrict the use of real-world information.
 
 Many state-of-the-art models now rely on a combination of human-generated and synthetic data during training and post-training stages.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Synthetic Data Is Always Lower Quality Than Human Data. High-quality synthetic data generated and reviewed properly can be extremely valuable.
+*Synthetic Data Is Always Lower Quality Than Human Data.* High-quality synthetic data generated and reviewed properly can be extremely valuable.
 
-More Synthetic Data Always Improves Models. Poor-quality synthetic data can introduce bias, amplify errors, and degrade performance.
+*More Synthetic Data Always Improves Models.* Poor-quality synthetic data can introduce bias, amplify errors, and degrade performance.
 
-When It Matters
+**When It Matters**
 
 Synthetic data becomes important when training data is limited, expensive, sensitive, or imbalanced. It is increasingly used in fine-tuning pipelines, evaluation systems, and domain adaptation workflows.
 
----
+- - -
 
 ## Infrastructure Layer
 
-## 15. Harness Engineering
+### 15. Harness Engineering
 
-Definition
+**Definition**
 
 Harness Engineering is the practice of designing and building the infrastructure layer that surrounds a language model in a production AI system. While models provide reasoning capabilities, the harness determines how those capabilities are used, controlled, monitored, and integrated into real-world applications.
 
-Why It Exists
+**Why It Exists**
 
 A language model alone is rarely sufficient for production use. Real applications require retrieval, memory, tool access, safety controls, observability, evaluation mechanisms, and workflow management.
 
 Harness Engineering emerged from the realization that much of an AI system's reliability comes from the surrounding architecture rather than the model itself.
 
-Key Concepts
+**Key Concepts**
 
 A typical AI harness may include:
 
-Prompt management
-Context engineering
-Tool integrations
-Memory systems
-Guardrails
-Evaluation pipelines
-Monitoring and observability
-Routing and orchestration
+* Prompt management
+* Context engineering
+* Tool integrations
+* Memory systems
+* Guardrails
+* Evaluation pipelines
+* Monitoring and observability
+* Routing and orchestration
 
 The harness acts as the operational environment in which the model functions.
 
-As models become increasingly capable, competitive advantage often shifts from model selection toward harness design.
+As models become increasingly capable, competitive advantage often shifts from model selection toward harness design. Complete details on harness engineering is captured in [Harness Engineering: Control Plane for Agentic Systems](https://himankj.com/#/blog/2026-04-18-harness-engineering-control-plane-for-agentic-systems)
+
+**Common Misconceptions**
+
+*The Model Is the Product.* In many production systems, the harness contributes more to reliability and business value than the model itself.
+
+*Harness Engineering Is Just Prompt Engineering.* Prompts are only one component. Harness Engineering encompasses the broader architecture surrounding the model.
+
+**When It Matters**
+
+Harness Engineering becomes critical when moving from prototypes to production systems where reliability, governance, scalability, and maintainability are essential requirements.
+
+- - -
+
+### 16. Guardrails
+Definition
+
+Guardrails are mechanisms that help ensure an AI system behaves within defined boundaries. They are used to improve reliability, safety, compliance, and consistency by preventing undesirable inputs, outputs, or actions.
+
+Why It Exists
+
+Language models are probabilistic systems. Even highly capable models can generate incorrect information, violate formatting requirements, expose sensitive data, or take actions that conflict with business policies.
+
+Guardrails exist to reduce these risks and make AI systems more predictable in production environments.
+
+Key Concepts
+
+Guardrails can be applied at multiple stages of an AI workflow:
+
+- Input Guardrails validate or filter incoming requests.
+- Output Guardrails check generated responses before they are returned.
+- Tool Guardrails control which actions can be executed.
+- Policy Guardrails enforce business, legal, or compliance requirements.
+
+Modern guardrails often combine rule-based checks, classifiers, validation logic, and additional AI models.
+
+Importantly, guardrails do not make a model "smarter." Their purpose is to reduce risk and improve control over system behavior.
 
 Common Misconceptions
 
-The Model Is the Product. In many production systems, the harness contributes more to reliability and business value than the model itself.
+Guardrails Prevent All Failures. Guardrails reduce risk but cannot guarantee perfect behavior.
 
-Harness Engineering Is Just Prompt Engineering. Prompts are only one component. Harness Engineering encompasses the broader architecture surrounding the model.
+Guardrails Are Only About Safety. While safety is important, guardrails are equally valuable for enforcing formatting rules, business policies, workflow constraints, and quality requirements.
 
 When It Matters
 
-Harness Engineering becomes critical when moving from prototypes to production systems where reliability, governance, scalability, and maintainability are essential requirements.
+Guardrails become increasingly important when AI systems interact with customers, enterprise data, regulated workflows, financial systems, healthcare applications, or any environment where mistakes have meaningful consequences.
+
+---
+
+## Evaluation Layer
+
+### 17. Evals (Evaluations)
+Definition
+
+Evaluations, commonly called "Evals," are the processes and methodologies used to measure the quality, reliability, and performance of AI systems. They provide an objective way to determine whether a model or application is meeting desired requirements.
+
+Why It Exists
+
+AI systems can appear impressive during demonstrations while performing poorly in real-world scenarios. Without systematic evaluation, it is difficult to determine whether a new model, prompt, retrieval strategy, or agent workflow is actually improving performance.
+
+Key Concepts
+
+Evaluations can be performed at multiple levels.
+
+Model-Level Evaluations measure the capabilities of a base model. Common benchmarks include:
+- MMLU: General knowledge and reasoning.
+- HumanEval: Code generation ability.
+- GPQA: Graduate-level reasoning and expertise.
+- SWE-Bench: Software engineering performance.
+
+Application-Level Evaluations measure how well a complete AI system performs. Examples include:
+- Answer accuracy
+- Retrieval quality
+- Hallucination rates
+- Tool selection accuracy
+- Task completion success
+
+For production systems, application-level evals are often more valuable than benchmark scores because they reflect actual business outcomes.
+
+Common Misconceptions
+
+Higher Benchmark Scores Mean Better Products. Strong benchmark performance does not guarantee strong real-world performance.
+
+Evals Are Only Needed During Training. Evaluation should be a continuous process whenever prompts, models, retrieval systems, or workflows change.
+
+When It Matters
+
+Evals are essential whenever AI systems are being deployed, optimized, fine-tuned, or compared. Organizations that treat evaluations as a first-class discipline generally build more reliable AI products.
+
+---
+
+### 18. Orchestration
+Definition
+
+Orchestration is the coordination and management of multiple AI components, tools, models, workflows, or agents to achieve a larger objective. It determines how information, decisions, and actions flow through a system.
+
+Why It Exists
+
+Most production AI systems involve more than a single model call. They often require retrieval, planning, tool usage, validation, memory access, and response generation.
+
+Without orchestration, these components operate independently. Orchestration provides the structure that connects them into a coherent workflow.
+
+Key Concepts
+
+Orchestration can range from simple sequential pipelines to complex multi-agent systems.
+
+Common orchestration patterns include:
+- Sequential workflows
+- Parallel execution
+- Routing-based workflows
+- Planner-executor architectures
+- Multi-agent coordination
+
+The goal is not to increase intelligence but to ensure the right component performs the right task at the right time.
+
+As AI systems grow in complexity, orchestration becomes increasingly important for scalability, reliability, and maintainability.
+
+Common Misconceptions
+
+Orchestration Means Multi-Agent Systems. Multi-agent systems are one form of orchestration. Many orchestrated workflows involve only a single model.
+
+Orchestration Is the Same as Agentic AI. Orchestration manages workflow execution, while agentic AI refers to autonomous decision-making.
+
+Relationship to Other Terms
+
+Orchestration often acts as the coordination layer connecting:
+- Agents
+- Tools
+- Skills
+- Memory Systems
+- Model Routers
+- Guardrails
+
+In many architectures, orchestration is the component that determines how all other pieces interact.
+
+When It Matters
+
+Orchestration becomes important whenever an application contains multiple steps, multiple tools, multiple agents, or dynamic decision paths.
+
+---
+
+### 19. Knowledge Graphs
+Definition
+
+A Knowledge Graph is a structured representation of entities and the relationships between them. Instead of storing information as isolated documents, knowledge graphs organize information into connected nodes and relationships that can be traversed and reasoned over.
+
+Why It Exists
+
+Traditional retrieval systems are excellent at finding relevant documents but often struggle with complex relationships between entities.
+
+Many business domains contain rich interconnected information such as customers, policies, claims, products, suppliers, regulations, and employees. Knowledge graphs help represent and navigate these relationships explicitly.
+
+Key Concepts
+
+A knowledge graph typically consists of:
+
+Entities (people, organizations, products, documents, etc.)
+Relationships between entities
+Attributes associated with entities
+
+For example:
+
+Customer
+   │
+Owns
+   │
+Policy
+   │
+Covers
+   │
+Vehicle
+
+This structure enables systems to answer relationship-oriented questions that may be difficult to solve through document retrieval alone.
+
+Knowledge graphs are increasingly being combined with LLMs and RAG systems to improve reasoning and retrieval quality.
+
+Common Misconceptions
+
+Knowledge Graphs Replace Vector Databases. The two solve different problems. Vector databases excel at semantic similarity, while knowledge graphs excel at relationship modeling.
+
+Knowledge Graphs Are Only for Large Enterprises. They can provide value in any domain where relationships between entities are important.
+
+When It Matters
+
+Knowledge graphs become particularly useful when applications need relationship-based reasoning, entity discovery, recommendation systems, fraud detection, or advanced enterprise knowledge retrieval.
+
+20. Model Router
+Definition
+
+A Model Router is a system that dynamically selects which AI model should handle a given request. Rather than sending every request to a single model, the router evaluates the task and directs it to the most appropriate model.
+
+Why It Exists
+
+Modern organizations often use multiple models with different strengths, costs, speeds, and capabilities.
+
+For example:
+
+A small model may be sufficient for classification.
+A larger model may be needed for complex reasoning.
+A specialized model may perform better on coding tasks.
+
+A model router helps balance quality, latency, and cost.
+
+Key Concepts
+
+Routing decisions are typically based on factors such as:
+
+Task complexity
+Cost constraints
+Latency requirements
+Domain specialization
+Model availability
+
+This allows organizations to avoid using expensive frontier models for simple tasks while still maintaining high-quality performance where necessary.
+
+Model routing has become increasingly important as the AI ecosystem expands and organizations adopt multi-model strategies.
+
+Common Misconceptions
+
+The Best Model Should Always Be Used. The most capable model is often the most expensive. For many tasks, a smaller model can deliver comparable results at significantly lower cost.
+
+Model Routing Is Only About Cost Optimization. Routing can also improve performance, resilience, specialization, and operational flexibility.
+
+Relationship to Other Terms
+
+Model routers are often used within orchestration frameworks and harnesses to determine which model should execute a particular step of a workflow.
+
+When It Matters
+
+Model routing becomes valuable when organizations operate multiple models and need to optimize quality, speed, reliability, and cost across large-scale AI workloads.
