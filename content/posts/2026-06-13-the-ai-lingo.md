@@ -73,7 +73,7 @@ For example, if a request contains 2,000 input tokens and produces 500 output to
 
 - - -
 
-### Context Window
+### 2. Context Window
 
 **Definition**
 
@@ -105,7 +105,7 @@ Context windows become particularly important when working with long documents, 
 
 - - -
 
-### Prompt Engineering
+### 3. Prompt Engineering
 
 **Definition**
 
@@ -140,7 +140,7 @@ Prompt engineering is important whenever consistency, reliability, and structure
 
 - - -
 
-### Context Engineering
+### 4. Context Engineering
 
 **Definition**
 
@@ -181,7 +181,7 @@ RAG, memory systems, retrieval pipelines, and knowledge sources are often compon
 
 - - -
 
-### RAG (Retrieval-Augmented Generation)
+### 5. RAG (Retrieval-Augmented Generation)
 
 **Definition**
 
