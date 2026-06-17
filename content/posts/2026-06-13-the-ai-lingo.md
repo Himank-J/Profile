@@ -617,219 +617,423 @@ Harness Engineering becomes critical when moving from prototypes to production s
 - - -
 
 ### 16. Guardrails
-Definition
+
+**Definition**
 
 Guardrails are mechanisms that help ensure an AI system behaves within defined boundaries. They are used to improve reliability, safety, compliance, and consistency by preventing undesirable inputs, outputs, or actions.
 
-Why It Exists
+**Why It Exists**
 
 Language models are probabilistic systems. Even highly capable models can generate incorrect information, violate formatting requirements, expose sensitive data, or take actions that conflict with business policies.
 
 Guardrails exist to reduce these risks and make AI systems more predictable in production environments.
 
-Key Concepts
+**Key Concepts**
 
 Guardrails can be applied at multiple stages of an AI workflow:
 
-- Input Guardrails validate or filter incoming requests.
-- Output Guardrails check generated responses before they are returned.
-- Tool Guardrails control which actions can be executed.
-- Policy Guardrails enforce business, legal, or compliance requirements.
+* Input Guardrails validate or filter incoming requests.
+* Output Guardrails check generated responses before they are returned.
+* Tool Guardrails control which actions can be executed.
+* Policy Guardrails enforce business, legal, or compliance requirements.
 
 Modern guardrails often combine rule-based checks, classifiers, validation logic, and additional AI models.
 
 Importantly, guardrails do not make a model "smarter." Their purpose is to reduce risk and improve control over system behavior.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Guardrails Prevent All Failures. Guardrails reduce risk but cannot guarantee perfect behavior.
+*Guardrails Prevent All Failures.* Guardrails reduce risk but cannot guarantee perfect behavior.
 
-Guardrails Are Only About Safety. While safety is important, guardrails are equally valuable for enforcing formatting rules, business policies, workflow constraints, and quality requirements.
+*Guardrails Are Only About Safety.* While safety is important, guardrails are equally valuable for enforcing formatting rules, business policies, workflow constraints, and quality requirements.
 
-When It Matters
+**When It Matters**
 
 Guardrails become increasingly important when AI systems interact with customers, enterprise data, regulated workflows, financial systems, healthcare applications, or any environment where mistakes have meaningful consequences.
 
----
+- - -
 
 ## Evaluation Layer
 
 ### 17. Evals (Evaluations)
-Definition
+
+**Definition**
 
 Evaluations, commonly called "Evals," are the processes and methodologies used to measure the quality, reliability, and performance of AI systems. They provide an objective way to determine whether a model or application is meeting desired requirements.
 
-Why It Exists
+**Why It Exists**
 
 AI systems can appear impressive during demonstrations while performing poorly in real-world scenarios. Without systematic evaluation, it is difficult to determine whether a new model, prompt, retrieval strategy, or agent workflow is actually improving performance.
 
-Key Concepts
+**Key Concepts**
 
 Evaluations can be performed at multiple levels.
 
 Model-Level Evaluations measure the capabilities of a base model. Common benchmarks include:
-- MMLU: General knowledge and reasoning.
-- HumanEval: Code generation ability.
-- GPQA: Graduate-level reasoning and expertise.
-- SWE-Bench: Software engineering performance.
+
+* MMLU: General knowledge and reasoning.
+* HumanEval: Code generation ability.
+* GPQA: Graduate-level reasoning and expertise.
+* SWE-Bench: Software engineering performance.
 
 Application-Level Evaluations measure how well a complete AI system performs. Examples include:
-- Answer accuracy
-- Retrieval quality
-- Hallucination rates
-- Tool selection accuracy
-- Task completion success
+
+* Answer accuracy
+* Retrieval quality
+* Hallucination rates
+* Tool selection accuracy
+* Task completion success
 
 For production systems, application-level evals are often more valuable than benchmark scores because they reflect actual business outcomes.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Higher Benchmark Scores Mean Better Products. Strong benchmark performance does not guarantee strong real-world performance.
+*Higher Benchmark Scores Mean Better Products.* Strong benchmark performance does not guarantee strong real-world performance.
 
-Evals Are Only Needed During Training. Evaluation should be a continuous process whenever prompts, models, retrieval systems, or workflows change.
+*Evals Are Only Needed During Training.* Evaluation should be a continuous process whenever prompts, models, retrieval systems, or workflows change.
 
-When It Matters
+**When It Matters**
 
 Evals are essential whenever AI systems are being deployed, optimized, fine-tuned, or compared. Organizations that treat evaluations as a first-class discipline generally build more reliable AI products.
 
----
+- - -
 
 ### 18. Orchestration
-Definition
+
+**Definition**
 
 Orchestration is the coordination and management of multiple AI components, tools, models, workflows, or agents to achieve a larger objective. It determines how information, decisions, and actions flow through a system.
 
-Why It Exists
+**Why It Exists**
 
 Most production AI systems involve more than a single model call. They often require retrieval, planning, tool usage, validation, memory access, and response generation.
 
 Without orchestration, these components operate independently. Orchestration provides the structure that connects them into a coherent workflow.
 
-Key Concepts
+**Key Concepts**
 
 Orchestration can range from simple sequential pipelines to complex multi-agent systems.
 
 Common orchestration patterns include:
-- Sequential workflows
-- Parallel execution
-- Routing-based workflows
-- Planner-executor architectures
-- Multi-agent coordination
+
+* Sequential workflows
+* Parallel execution
+* Routing-based workflows
+* Planner-executor architectures
+* Multi-agent coordination
 
 The goal is not to increase intelligence but to ensure the right component performs the right task at the right time.
 
 As AI systems grow in complexity, orchestration becomes increasingly important for scalability, reliability, and maintainability.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Orchestration Means Multi-Agent Systems. Multi-agent systems are one form of orchestration. Many orchestrated workflows involve only a single model.
+*Orchestration Means Multi-Agent Systems.* Multi-agent systems are one form of orchestration. Many orchestrated workflows involve only a single model.
 
-Orchestration Is the Same as Agentic AI. Orchestration manages workflow execution, while agentic AI refers to autonomous decision-making.
+*Orchestration Is the Same as Agentic AI.* Orchestration manages workflow execution, while agentic AI refers to autonomous decision-making.
 
 Relationship to Other Terms
 
 Orchestration often acts as the coordination layer connecting:
-- Agents
-- Tools
-- Skills
-- Memory Systems
-- Model Routers
-- Guardrails
+
+* Agents
+* Tools
+* Skills
+* Memory Systems
+* Model Routers
+* Guardrails
 
 In many architectures, orchestration is the component that determines how all other pieces interact.
 
-When It Matters
+**When It Matters**
 
 Orchestration becomes important whenever an application contains multiple steps, multiple tools, multiple agents, or dynamic decision paths.
 
----
+- - -
 
 ### 19. Knowledge Graphs
-Definition
+
+**Definition**
 
 A Knowledge Graph is a structured representation of entities and the relationships between them. Instead of storing information as isolated documents, knowledge graphs organize information into connected nodes and relationships that can be traversed and reasoned over.
 
-Why It Exists
+**Why It Exists**
 
 Traditional retrieval systems are excellent at finding relevant documents but often struggle with complex relationships between entities.
 
 Many business domains contain rich interconnected information such as customers, policies, claims, products, suppliers, regulations, and employees. Knowledge graphs help represent and navigate these relationships explicitly.
 
-Key Concepts
+**Key Concepts**
 
 A knowledge graph typically consists of:
 
-Entities (people, organizations, products, documents, etc.)
-Relationships between entities
-Attributes associated with entities
-
-For example:
-
-Customer
-   │
-Owns
-   │
-Policy
-   │
-Covers
-   │
-Vehicle
+* Entities (people, organizations, products, documents, etc.)
+* Relationships between entities
+* Attributes associated with entities
 
 This structure enables systems to answer relationship-oriented questions that may be difficult to solve through document retrieval alone.
 
 Knowledge graphs are increasingly being combined with LLMs and RAG systems to improve reasoning and retrieval quality.
 
-Common Misconceptions
+**Common Misconceptions**
 
-Knowledge Graphs Replace Vector Databases. The two solve different problems. Vector databases excel at semantic similarity, while knowledge graphs excel at relationship modeling.
+*Knowledge Graphs Replace Vector Databases.* The two solve different problems. Vector databases excel at semantic similarity, while knowledge graphs excel at relationship modeling.
 
-Knowledge Graphs Are Only for Large Enterprises. They can provide value in any domain where relationships between entities are important.
+*Knowledge Graphs Are Only for Large Enterprises.* They can provide value in any domain where relationships between entities are important.
 
-When It Matters
+**When It Matters**
 
 Knowledge graphs become particularly useful when applications need relationship-based reasoning, entity discovery, recommendation systems, fraud detection, or advanced enterprise knowledge retrieval.
 
-20. Model Router
-Definition
+- - -
+
+### 20. Model Router
+
+**Definition**
 
 A Model Router is a system that dynamically selects which AI model should handle a given request. Rather than sending every request to a single model, the router evaluates the task and directs it to the most appropriate model.
 
-Why It Exists
+**Why It Exists**
 
 Modern organizations often use multiple models with different strengths, costs, speeds, and capabilities.
 
 For example:
 
-A small model may be sufficient for classification.
-A larger model may be needed for complex reasoning.
-A specialized model may perform better on coding tasks.
+* A small model may be sufficient for classification.
+* A larger model may be needed for complex reasoning.
+* A specialized model may perform better on coding tasks.
 
 A model router helps balance quality, latency, and cost.
 
-Key Concepts
+**Key Concepts**
 
 Routing decisions are typically based on factors such as:
 
-Task complexity
-Cost constraints
-Latency requirements
-Domain specialization
-Model availability
+* Task complexity
+* Cost constraints
+* Latency requirements
+* Domain specialization
+* Model availability
 
 This allows organizations to avoid using expensive frontier models for simple tasks while still maintaining high-quality performance where necessary.
 
 Model routing has become increasingly important as the AI ecosystem expands and organizations adopt multi-model strategies.
 
-Common Misconceptions
+**Common Misconceptions**
 
-The Best Model Should Always Be Used. The most capable model is often the most expensive. For many tasks, a smaller model can deliver comparable results at significantly lower cost.
+*The Best Model Should Always Be Used.* The most capable model is often the most expensive. For many tasks, a smaller model can deliver comparable results at significantly lower cost.
 
-Model Routing Is Only About Cost Optimization. Routing can also improve performance, resilience, specialization, and operational flexibility.
+*Model Routing Is Only About Cost Optimization.* Routing can also improve performance, resilience, specialization, and operational flexibility.
 
-Relationship to Other Terms
+**Relationship to Other Terms**
 
 Model routers are often used within orchestration frameworks and harnesses to determine which model should execute a particular step of a workflow.
 
-When It Matters
+**When It Matters**
 
 Model routing becomes valuable when organizations operate multiple models and need to optimize quality, speed, reliability, and cost across large-scale AI workloads.
+
+- - -
+
+## Model Optimization Layer
+
+### 21. Mixture of Experts (MoE)
+
+**Definition**
+
+Mixture of Experts (MoE) is a model architecture in which multiple specialized neural network components, known as experts, are available within a model, but only a small subset of them is activated for a given request. Instead of using the entire model for every token, the model selectively routes work to the most relevant experts.
+
+**Why It Exists**
+
+As AI models grew larger, increasing model size became increasingly expensive from both training and inference perspectives. Researchers needed a way to increase model capacity without proportionally increasing computational costs.
+
+MoE addresses this challenge by allowing a model to contain a very large number of parameters while only activating a fraction of them during inference.
+
+**Key Concepts**
+
+The primary advantage of MoE is improved efficiency.
+
+A traditional dense model uses all parameters for every request. An MoE model may contain significantly more total parameters but only activate a small percentage of them at runtime.
+
+This creates a favorable balance between:
+
+* Model capacity
+* Inference cost
+* Training scalability
+* Performance
+
+Many modern frontier models use MoE architectures because they enable larger effective model sizes without requiring proportional increases in compute for every request.
+
+**Common Misconceptions**
+
+*MoE Means Multiple Models Working Together.* MoE is typically a single model architecture, not a collection of independently deployed models.
+
+*More Experts Automatically Means Better Performance.* Performance depends on routing quality, training methodology, and overall architecture, not simply the number of experts.
+
+**When It Matters**
+
+For most AI practitioners, MoE is primarily useful as a conceptual understanding. It helps explain how modern frontier models can achieve high performance while maintaining practical inference costs.
+
+- - -
+
+### 22. Distillation
+
+**Definition**
+
+Distillation is the process of training a smaller model to mimic the behavior of a larger and more capable model. The larger model, often called the teacher, generates outputs that are used to train the smaller student model.
+
+**Why It Exists**
+
+Large models often provide excellent performance but can be expensive to run. Many production workloads require lower latency, reduced infrastructure costs, or deployment on resource-constrained environments.
+
+Distillation aims to transfer much of the teacher model's capability into a smaller and more efficient model.
+
+**Key Concepts**
+
+The core idea is knowledge transfer.
+
+Instead of learning directly from human-labeled examples, the student model learns from outputs generated by the teacher model. The resulting model is typically smaller, faster and cheaper to serve.
+
+However, some performance degradation is usually expected. The goal is not to achieve identical performance but to find an acceptable balance between accuracy and efficiency.
+
+Distillation is particularly attractive when a large model performs a repetitive business task at scale and inference costs become significant.
+
+**Common Misconceptions**
+
+*Distillation Creates an Exact Copy of the Teacher.* Distilled models usually retain much of the capability but rarely match the teacher completely.
+
+*Distillation Is the Same as Fine-Tuning.* Fine-tuning adapts a model to a task. Distillation transfers behavior from one model to another.
+
+**When It Matters**
+
+Distillation becomes valuable when serving costs, latency requirements, or deployment constraints make large models impractical for production use.
+
+- - -
+
+### 23. Quantization
+
+**Definition**
+
+Quantization is a technique that reduces the numerical precision used to represent a model's parameters. By storing parameters using fewer bits, the model requires less memory and can often run more efficiently.
+
+**Why It Exists**
+
+Modern language models can be extremely large, making them expensive to store, load, and serve. In many cases, organizations want to deploy models on smaller GPUs, edge devices, or cost-optimized infrastructure.
+
+Quantization helps reduce resource requirements without requiring changes to the model's overall architecture.
+
+**Key Concepts**
+
+Most models are originally trained using high-precision numerical representations. Quantization converts these values into lower-precision formats that consume less memory.
+
+Potential benefits include:
+
+* Reduced memory usage
+* Faster inference
+* Lower infrastructure costs
+* Easier deployment
+
+The tradeoff is that aggressive quantization can introduce accuracy degradation. The objective is to reduce resource consumption while preserving acceptable performance.
+
+Different quantization levels offer different tradeoffs between efficiency and quality.
+
+**Common Misconceptions**
+
+*Quantization Retrains the Model.* Quantization is primarily an inference optimization technique rather than a training technique.
+
+*Quantization Always Reduces Quality Significantly.* Modern quantization techniques often preserve most of the model's capabilities while delivering substantial efficiency gains.
+
+**When It Matters**
+
+Quantization becomes important when deploying models in production, optimizing infrastructure costs, serving large-scale workloads, or running models on hardware with limited memory.
+
+- - -
+
+## Memory Layer
+
+### 24. Memory Layer
+
+**Definition**
+
+A Memory Layer is the collection of mechanisms that allow an AI system to retain, retrieve, and utilize information beyond the immediate prompt. It extends the model's ability to maintain continuity, personalize interactions, and perform long-running tasks.
+
+**Why It Exists**
+
+Language models are inherently stateless. Once a conversation ends, the model does not automatically remember previous interactions unless that information is stored and supplied again.
+
+As AI systems evolved into assistants and agents, a need emerged for persistent information that could survive beyond a single request or session.
+
+**Key Concepts**
+
+Modern memory systems typically include multiple forms of memory.
+
+* Working Memory contains information actively being used during task execution.
+* Short-Term Memory stores information from the current conversation or session.
+* Long-Term Memory persists information across sessions, such as user preferences, historical interactions, or business knowledge.
+* Episodic Memory stores experiences and outcomes from previous tasks, allowing systems to reference past actions and decisions.
+
+Not every AI system requires all memory types. The appropriate design depends on the application's goals.
+
+**Common Misconceptions**
+
+*A Large Context Window Is Memory.* Context windows only define what the model can currently see. Memory involves storing and retrieving information across interactions.
+
+*Memory Means Storing Everything.* Effective memory systems prioritize relevance and retrieval quality rather than retaining every piece of information indefinitely.
+
+**Relationship to Other Terms**
+
+Memory systems frequently interact with:
+
+* Agents
+* Context Engineering
+* RAG
+* Knowledge Graphs
+* Orchestration Frameworks
+
+Many advanced agent architectures rely heavily on memory to support long-term task execution.
+
+**When It Matters**
+
+Memory becomes important whenever personalization, continuity, learning from past interactions, or long-running workflows are required.
+
+- - -
+
+## Application Layer
+
+### 25. Grounding
+
+**Definition**
+
+Grounding is the practice of ensuring that a model's responses are based on verifiable information rather than solely on patterns learned during training. A grounded response is tied to trusted sources, retrieved knowledge, structured data, or real-world evidence.
+
+**Why It Exists**
+
+Language models are designed to generate plausible text, not guarantee factual correctness. As a result, they may confidently produce inaccurate information when reliable evidence is unavailable.
+
+Grounding helps reduce this risk by connecting model outputs to authoritative sources.
+
+**Key Concepts**
+
+Grounding can be achieved through multiple approaches:
+
+* RAG systems
+* Database lookups
+* Knowledge graphs
+* Enterprise data sources
+* Tool usage
+
+The objective is to ensure that responses are supported by evidence rather than generated purely from model memory.
+
+Grounding is particularly important in enterprise environments where factual accuracy and traceability are critical.
+
+**Common Misconceptions**
+
+*Grounding and RAG Are the Same Thing.* RAG is one technique used to achieve grounding. Grounding is the broader objective.
+
+*Grounded Responses Cannot Be Wrong.* Grounding improves reliability but still depends on the quality and correctness of the underlying sources.
+
+**When It Matters**
+
+Grounding becomes essential whenever factual accuracy, source attribution, auditability, regulatory compliance, or enterprise trust requirements are important.
+
+- - -
