@@ -6,7 +6,22 @@
     <description>Writing on AI, LLMs, and systems by Himank Jain.</description>
     <language>en-us</language>
     <atom:link href="https://himank-j.github.io/Profile/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 11 May 2026 06:16:18 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 05:19:04 GMT</lastBuildDate>
+    <item>
+      <title><![CDATA[The AI Practitioner's Guide: 25 Essential Concepts for 2026]]></title>
+      <link>https://himank-j.github.io/Profile/#/blog/2026-06-13-the-ai-lingo</link>
+      <guid isPermaLink="true">https://himank-j.github.io/Profile/#/blog/2026-06-13-the-ai-lingo</guid>
+      <description><![CDATA[AI terminologies and concepts most frequently used]]></description>
+      <pubDate>Sun, 14 Jun 2026 00:00:00 GMT</pubDate>
+      <category>AI</category>
+      <category>LLM</category>
+      <category>Harness</category>
+      <category>RAG</category>
+      <category>Tokens</category>
+      <category>Agent</category>
+      <category>Agentic</category>
+      <category>Orchestration</category>
+    </item>
     <item>
       <title><![CDATA[Engineering Learnings Behind Claude Managed Agents]]></title>
       <link>https://himank-j.github.io/Profile/#/blog/2026-05-10-engineering-learnings-behind-claude-managed-agents</link>

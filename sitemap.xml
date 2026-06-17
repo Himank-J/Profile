@@ -17,6 +17,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://himank-j.github.io/Profile/#/blog/2026-06-13-the-ai-lingo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://himank-j.github.io/Profile/#/blog/2026-05-10-engineering-learnings-behind-claude-managed-agents</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
